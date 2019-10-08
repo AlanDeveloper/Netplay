@@ -1,0 +1,12 @@
+{% extends 'bootstrap/base.html' %}
+{% block body %}
+<form action="#" class="form-control" method="post">
+    <label for="">Título</label>
+    <input type="text" class="form-control" name="title" placeholder="Digite o título">
+    <label for="">Sinopse</label>
+    <textarea name="synopsis" class="form-control" cols="30" rows="10" placeholder="Digite a sinopse"></textarea>
+    <label for="">Faixa etária</label>
+    <input type="number" class="form-control" name="ageRange" placeholder="Faixa etária">
+    <input type="submit" class="btn btn-primary" value="Adicionar">
+</form>
+{% endblock %}
