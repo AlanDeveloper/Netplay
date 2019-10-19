@@ -6,10 +6,6 @@ from flask import Blueprint, render_template, request, redirect, flash, Flask, u
 from app.controllers.control import control
 from app.controllers.film import film_bp
 
-#from app.controllers.usuario import usuario
-#from app.controllers.temporada import temporada
-#from app.controllers.serie import serie
-
 from app.models.film import film
 
 from flask_sqlalchemy import SQLAlchemy

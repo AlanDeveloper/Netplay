@@ -2,7 +2,7 @@
 {% block body %}
 <div style="width:90%;" class="row">
   <div class="col">
-  <img src="{{url_for('static', filename='thumbs/'+ls.image)}}" width="400px" height="500px" alt="">
+  <img src="{{url_for('static', filename='images/'+ls.image)}}" width="400px" height="500px" alt="">
   </div>
   <div style="position:relative;top:1em;" class="col">
       
@@ -28,7 +28,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                  <video width="620" height="240" controls>
+                  <video width="1024" height="768" controls>
                       <source src="{{url_for('static', filename='videos/'+ls.video)}}"  type="video/mp4">
                   </video>
               </div>
