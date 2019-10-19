@@ -1,0 +1,35 @@
+{% extends 'layout/base.html' %}
+{% block body %}
+<img src="{{url_for('static', filename='images/'+ls.image)}}" width="400px" height="500px" alt="">
+<a href="/filme/lista" style="position:relative;top:-14em;" class="btn btn-primary" >Voltar</a>
+<button class="btn btn-info" style="position:relative;left:30%;top:-3em;" disabled="disabled">{{ ls.ageRange }}</button>        
+
+    <div style="position:relative;width:40%;left:20%;" class="row">
+        <h1 style="position:relative;top:-10em;width:60%;left:80%;">{{ ls.title }}</h1>
+        <button  style="position:relative;top:-24.5em;height:6%;left:100%;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo">Assistir</button>
+        <h3 style="position:relative;top:-11em;color:#377BA8;font-family:'Georgia', serif;width:10%;left:20%;">Sinopse</h3>
+        <p  style="position:relative;font-size:22.2px;top:-13.5em;width:100%;left:50%;">{{ls.synopsis}}</p>
+        <div style="position:relative;width:100%;top:-15em;" class="col">
+            <div class="modal fade"   id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div  style="position:relative;width:130%;"class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">{{ ls.title }}</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <video width="620" height="240" controls>
+                                <source src="{{url_for('static', filename=ls.video)}}"  type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+          </div>
+    </div>
+</table>
+{% endblock %}

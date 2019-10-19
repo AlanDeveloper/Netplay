@@ -22,6 +22,10 @@ app.register_blueprint(film_bp)
 def before():
     db.create_all()
 
+@app.route('/drop')
+def drop():
+    db.drop_all()
+
 @app.route('/')
 def index():
     return redirect(control.url_prefix)

@@ -2,11 +2,6 @@
 from flask import render_template, request,redirect
 from flask import Blueprint, flash, Flask
 from app.models import __init__
-#from app.models.daoTemporada import TemporadaDAO
-#from app.models.daoSerie import SerieDAO
-#from app.models.serie import Serie
-#from app.models.temporada import Temporada
-#from app.models.dao import UsuarioDAO
 
 from app import db
 

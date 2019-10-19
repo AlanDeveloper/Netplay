@@ -8,10 +8,9 @@ import os
 
 app = Flask('app')
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'secret')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:@localhost/netplay'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123@localhost/netplay'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.debug = True
 
 db = SQLAlchemy(app)
 Bootstrap(app)
-

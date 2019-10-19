@@ -7,11 +7,15 @@ class film(db.Model):
     title = Column(String(100), unique=True)
     synopsis = Column(String(1000))
     ageRange = Column(Integer)
+    image = Column(String(1000))
+    video = Column(String(1000))
 
-    def __init__(self, title, synopsis, ageRange):
+    def __init__(self, title, synopsis, ageRange, image, video):
         self.title = title
         self.synopsis = synopsis
         self.ageRange = ageRange
+        self.image = image
+        self.video = video
 
     def add(film):
         db.session.add(film)
@@ -30,3 +34,6 @@ class film(db.Model):
 
     def search(id):
         return film.query.filter_by(id=id).first()
+
+    def searchName(name):
+        return film.query.filter(film.title.like('%'+name+'%')).all()
