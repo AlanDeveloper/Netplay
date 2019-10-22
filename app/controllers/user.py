@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import render_template, request, redirect
-from flask import Blueprint, flash, Flask
+from flask import Blueprint, flash, Flask, session
 from app.models import __init__
 from app.models.user import user
 
@@ -15,6 +15,10 @@ def index():
         
         resp = user(name, email, password)
         user.add(resp)
+
+        session['name'] = name
+        session['admin'] = resp.typeAdmin
+
         return redirect('/')
     else:
         return render_template('user/create.html')
@@ -24,15 +28,15 @@ def login():
     email = request.form['email']
     password = request.form['password']
 
-    if user.search(email, password):
+    u = user.search(email, password)
+    if u:
+        session['name'] = u.name
+        session['admin'] = u.typeAdmin
+
         return redirect('/')
     else: 
-        return 'Dados incorretos'
-
-@user_bp.route('/lista', methods=['GET', 'POST'])
-def list():
-    ls = user.ls()
-    return render_template('user/list.html', ls=ls)
+        error = 'Dados incorretos'
+        return render_template('printer/index.html', error=error)
 
 @user_bp.route('/del/<id>', methods=['GET', 'POST'])
 def delete(id):

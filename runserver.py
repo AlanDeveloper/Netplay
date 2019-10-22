@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 from app import app
-from flask import Blueprint, render_template, request, redirect, flash, Flask, url_for
+from flask import Blueprint, render_template, request, redirect, flash, Flask, url_for, session
 from app.controllers.control import control
 from app.controllers.film import film_bp
 from app.controllers.user import user_bp
@@ -16,6 +16,9 @@ app.register_blueprint(user_bp)
 
 @app.before_first_request
 def before():
+    session['name'] = None 
+    session['admin'] = False 
+
     db.create_all()
 
 @app.route('/drop')

@@ -24,11 +24,14 @@
     <a class="nav-link" style="color:white;" href="/filme/lista">
         Filmes
     </a>
+    {% if admin %}
     <a class="nav-link" style="color:white;" href="/filme">
         Adicionar Filmes
     </a>
+    {% endif %}
     <a class="nav-link" style="color:white;" href="#login">
-        <button style="position:relative;left:-85%;" class="btn btn-info" id="logar" type="submit">
+        <button type="button" style="position:relative;left:-85%;" class="btn btn-info" data-toggle="modal"
+            data-target="#modalExemplo">
             Logar
         </button>
     </a>

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import render_template, request,redirect
+from flask import render_template, request,redirect, session
 from flask import Blueprint, flash, Flask
 from app.models import __init__
 
@@ -9,7 +9,7 @@ control = Blueprint('control', __name__, url_prefix='/')
 
 @control.route('/')
 def index():
-    return render_template('printer/index.html')
+    return render_template('printer/index.html', admin=session['admin'])
 
 @control.route('/home')
 def home():

@@ -14,8 +14,10 @@
               <a href="info/{{item.id}}" style="position:relative;width:100%;" class="btn btn-primary">Info</a>
               <br/>
               <br/>
-              <a  href="atualizar/{{ item.id }}" class="btn btn-info">Atualizar</a>
-              <a href="del/{{ item.id }}" class="btn btn-danger">Deletar</a>
+              {% if admin %}
+                <a  href="atualizar/{{ item.id }}" class="btn btn-info">Atualizar</a>
+                <a href="del/{{ item.id }}" class="btn btn-danger">Deletar</a>
+              {% endif %}
               
             </div>
           </div>

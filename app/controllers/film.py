@@ -2,7 +2,7 @@
 import os
 from time import gmtime, strftime
 from werkzeug.utils import secure_filename
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, session
 from flask import Blueprint, flash, Flask
 from app.models import __init__
 from app.models.film import film
@@ -42,7 +42,7 @@ def index():
 @film_bp.route('/lista', methods=['GET', 'POST'])
 def list():
     ls = film.ls()
-    return render_template('film/list.html', ls=ls)
+    return render_template('film/list.html', ls=ls, admin=session['admin'])
 
 @film_bp.route('/del/<id>', methods=['GET', 'POST'])
 def delete(id):
