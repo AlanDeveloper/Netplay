@@ -6,7 +6,7 @@ class film(db.Model):
     id = Column(Integer, primary_key=True)
     title = Column(String(100), unique=True)
     synopsis = Column(String(1000))
-    ageRange = Column(Integer)
+    ageRange = Column(String(5))
     image = Column(String(1000))
     video = Column(String(1000))
 
