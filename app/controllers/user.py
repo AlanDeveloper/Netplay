@@ -25,18 +25,23 @@ def index():
 
 @user_bp.route('/entrar', methods=['GET', 'POST'])
 def login():
-    email = request.form['email']
-    password = request.form['password']
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
 
-    u = user.search(email, password)
-    if u:
-        session['name'] = u.name
-        session['admin'] = u.typeAdmin
+        u = user.search(email, password)
+        if u:
+            session['name'] = u.name
+            session['admin'] = u.typeAdmin
 
-        return redirect('/')
-    else: 
-        error = 'Dados incorretos'
-        return render_template('printer/index.html', error=error)
+            return redirect('/')
+        else: 
+            error = 'Dados incorretos'
+            return render_template('user/create.html', error=error)
+    else:
+        return render_template('user/create.html')        
+      
+
 
 @user_bp.route('/del/<id>', methods=['GET', 'POST'])
 def delete(id):
