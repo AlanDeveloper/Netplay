@@ -37,7 +37,7 @@ def index():
             return render_template('film/create.html', error=error)
         
     else:
-        return render_template('film/create.html')
+        return render_template('film/create.html', admin=session['admin'])
 
 @film_bp.route('/lista', methods=['GET', 'POST'])
 def list():
