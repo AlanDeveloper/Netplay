@@ -5,14 +5,14 @@ from app import app
 from flask import Blueprint, render_template, request, redirect, flash, Flask, url_for
 from app.controllers.control import control
 from app.controllers.film import film_bp
-
-from app.models.film import film
+from app.controllers.user import user_bp
 
 from flask_sqlalchemy import SQLAlchemy
 from app import db
 
 app.register_blueprint(control)
 app.register_blueprint(film_bp)
+app.register_blueprint(user_bp)
 
 @app.before_first_request
 def before():

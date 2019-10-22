@@ -4,12 +4,12 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 class film(db.Model):
     __tablename__ = 'film'
     id = Column(Integer, primary_key=True)
-    title = Column(String(100), unique=True)
-    duration = Column(String(50))
-    synopsis = Column(String(1000))
-    ageRange = Column(String(5))
-    image = Column(String(1000))
-    video = Column(String(1000))
+    title = Column(String(100), unique=True, nullable=False)
+    duration = Column(String(50), nullable=False)
+    synopsis = Column(String(1000), nullable=False)
+    ageRange = Column(String(5), nullable=False)
+    image = Column(String(1000), nullable=False)
+    video = Column(String(1000), nullable=False)
 
     def __init__(self, title, duration, synopsis, ageRange, image = None, video = None):
         self.title = title
