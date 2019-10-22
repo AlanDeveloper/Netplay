@@ -120,44 +120,7 @@
             </div>
     </section>
 </div>
-<div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div style="position:relative;width:100%;" class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Acesse sua conta</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="buttoncad" class="form-signin"
-                    style="position:relative;width:70%;top:-1em;font-size:22px; left:15%;" action="/usuario/entrar"
-                    method="POST">
-                    <div class="form-label-group">
-                        <br />
-                        <label for="inputEmail">Email</label>
-                        <input type="email" id="email2" name="email" class="form-control" placeholder="Email" required>
-                    </div>
-                    <br />
-                    <div class="form-label-group">
-                        <label for="inputPassword">Senha</label>
-                        <input type="password" id="senha2" name="password" class="form-control" placeholder="Senha"
-                            required>
-                    </div>
-                    <br />
-                    <button class="btn btn-ms btn-primary btn-block text-uppercase"
-                        style="position:relative;left:40%;border-radius:20px; background-color:white;color:blue;width:50%;font-size:22px;"
-                        type="submit">Logar</button>
-                    <hr style="background-color:blue;" class="my-4">
-                    {% if error %}
-                    <p class=error>{{ error }}</p>
-                    {% endif %}
-                </form>
-            </div> 
-            </div>
-        </div>
-    </div>
+
     <form id="cadastro" class="form-signin"
         style="position:relative;width:70%;color:white;top:-1em;font-size:1.8rem; left:15%;" action="/usuario/"
         method="POST">
