@@ -19,6 +19,16 @@ def index():
     else:
         return render_template('user/create.html')
 
+@user_bp.route('/entrar', methods=['GET', 'POST'])
+def login():
+    email = request.form['email']
+    password = request.form['password']
+
+    if user.search(email, password):
+        return redirect('/')
+    else: 
+        return 'Dados incorretos'
+
 @user_bp.route('/lista', methods=['GET', 'POST'])
 def list():
     ls = user.ls()

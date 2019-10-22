@@ -13,7 +13,7 @@ class user(db.Model):
         self.name = name
         self.email = email
         self.password = password
-        self.type = False
+        self.typeAdmin = False
 
     def add(u):
         db.session.add(u)
@@ -30,5 +30,5 @@ class user(db.Model):
         db.session.merge(u)
         db.session.commit()
 
-    def search(id):
-        return user.query.filter_by(id=id).first()
+    def search(email, password):
+        return user.query.filter_by(email=email, password=password).first()
