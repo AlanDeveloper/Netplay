@@ -2,33 +2,40 @@
 {% block body %}
 <div style="width:90%;" class="row">
   <div class="col">
-  <img src="{{url_for('static', filename='images/'+ls.image)}}" width="400px" height="500px" alt="">
+  <img src="{{url_for('static', filename='images/'+ls.image)}}" width="500px" height="500px" alt="">
   </div>
   <div style="position:relative;top:1em;" class="col">
       
     <a href="/filme/lista" class="btn btn-primary" >Voltar</a>
-    <button class="btn btn-info" disabled="disabled">{{ ls.ageRange }}</button>        
-      
-    <h1 >{{ ls.title }}</h1>
+    <button class="btn btn-light" style="color:white;box-shadow: 1px 1px gray;background-color:{% if (ls.ageRange == 'L'): %} {% print('green') %} {% endif %}
+    {% if (ls.ageRange == '10'): %} {% print('blue') %} {% endif %}
+    {% if (ls.ageRange == '12'): %} {% print('yellow') %} {% endif %}
+    {% if (ls.ageRange == '14'): %} {% print('orange') %} {% endif %}
+    {% if (ls.ageRange == '16'): %} {% print('red') %} {% endif %}
+    {% if (ls.ageRange == '18'): %} {% print('black') %} {% endif %}" disabled="disabled" >{{ ls.ageRange }}</button>        
     <button  type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalExemplo">Assistir</button>
+    <br/>
+    <br/>
     
+    <h1 style="text-align: center;" >{{ ls.title }}</h1>
+    <br/>
     
-    <h3 style="color:#377BA8;font-family:'Georgia', serif;;">Sinopse</h3>
+    <h3 style="color:#377BA8;font-family:'Georgia', serif;text-align: center;">Sinopse</h3>
     <p  style="font-size:22.2px;">{{ls.synopsis}}</p>
   </div>
 </div>
 
-  <div style="width:100%;" class="col">
+  <div class="col">
       <div class="modal fade"   id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
-            <div  style="width:130%;"class="modal-content">
+            <div  style="position:relative;left:-15em;width:180%;"class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">{{ ls.title }}</h5>
+                <h5 class="modal-title"  id="exampleModalLabel">{{ ls.title }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                 </button>
               </div>
               <div class="modal-body">
-                  <video width="1024" height="768" controls>
+                  <video width="800" height="450" controls>
                       <source src="{{url_for('static', filename='videos/'+ls.video)}}"  type="video/mp4">
                   </video>
               </div>
