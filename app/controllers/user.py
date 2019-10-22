@@ -41,7 +41,12 @@ def login():
     else:
         return render_template('user/create.html')        
       
+@user_bp.route('/sair', methods=['GET', 'POST'])
+def exit():
+    session['name'] = None
+    session['admin'] = False
 
+    return redirect('/')
 
 @user_bp.route('/del/<id>', methods=['GET', 'POST'])
 def delete(id):
