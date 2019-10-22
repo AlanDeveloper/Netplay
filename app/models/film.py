@@ -5,17 +5,21 @@ class film(db.Model):
     __tablename__ = 'film'
     id = Column(Integer, primary_key=True)
     title = Column(String(100), unique=True)
+    duration = Column(String(50))
     synopsis = Column(String(1000))
     ageRange = Column(String(5))
     image = Column(String(1000))
     video = Column(String(1000))
 
-    def __init__(self, title, synopsis, ageRange, image, video):
+    def __init__(self, title, duration, synopsis, ageRange, image = None, video = None):
         self.title = title
+        self.duration = duration
         self.synopsis = synopsis
         self.ageRange = ageRange
-        self.image = image
-        self.video = video
+        if image:
+            self.image = image
+        if video:
+            self.video = video
 
     def add(film):
         db.session.add(film)

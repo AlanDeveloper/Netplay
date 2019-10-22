@@ -12,16 +12,76 @@
             <input  type="text" class="form-control" name="title" value="{{ ls.title }}" placeholder="Digite o título">
         </div>
         <div class="form-group">
+            <label>Duração</label>
+            <input type="text" class="form-control" name="duration" value="{{ ls.duration }}" placeholder="Digite a duração">
+        </div>
+        <div class="form-group">
             <label for="staticEmail2">Sinopse</label>
             <textarea name="synopsis" class="form-control" cols="30" rows="10" placeholder="Digite a sinopse">{{ ls.synopsis }}</textarea>
         </div>
         <div class="form-group">
-            <label for="staticEmail2">Faixa etária</label>
-            <input type="number" class="form-control"  value="{{ ls.ageRange }}"  name="ageRange" placeholder="Faixa etária">
+            <label>Faixa etária</label>
+            <select name="ageRange" class="form-control">
+                {% if ls.ageRange == 'L' %}
+                    <option value="L" selected>L</option>
+                    <option value="10">10</option>
+                    <option value="12">12</option>
+                    <option value="14">14</option>
+                    <option value="16">16</option>
+                    <option value="18">18</option>
+                {% endif %}
+                {% if ls.ageRange == '10' %}
+                    <option value="L">L</option>
+                    <option value="10" selected>10</option>
+                    <option value="12">12</option>
+                    <option value="14">14</option>
+                    <option value="16">16</option>
+                    <option value="18">18</option>
+                {% endif %}
+                {% if ls.ageRange == '12' %}
+                    <option value="L">L</option>
+                    <option value="10">10</option>
+                    <option value="12" selected>12</option>
+                    <option value="14">14</option>
+                    <option value="16">16</option>
+                    <option value="18">18</option>
+                {% endif %}
+                {% if ls.ageRange == '14' %}
+                    <option value="L">L</option>
+                    <option value="10">10</option>
+                    <option value="12">12</option>
+                    <option value="14" selected>14</option>
+                    <option value="16">16</option>
+                    <option value="18">18</option>
+                {% endif %}
+                {% if ls.ageRange == '16' %}
+                    <option value="L">L</option>
+                    <option value="10">10</option>
+                    <option value="12">12</option>
+                    <option value="14">14</option>
+                    <option value="16" selected>16</option>
+                    <option value="18">18</option>
+                {% endif %}
+                {% if ls.ageRange == '18' %}
+                    <option value="L">L</option>
+                    <option value="10">10</option>
+                    <option value="12">12</option>
+                    <option value="14">14</option>
+                    <option value="16">16</option>
+                    <option value="18" selected>18</option>
+                {% endif %}
+            </select>
         </div>
-        <input type="file" name="file">
-        <input type="file" name="video">
-        <input type="submit" class="btn btn-primary" value="Adicionar">
+        <div class="form-group">
+            <label>Selecione o arquivo da imagem(png, jpg, jpeg)</label><br>
+            <input type="file" name="file">
+        </div>
+        <div class="form-group">
+            <label>Selecione o arquivo do video(mp4)</label><br>
+            <input type="file" name="video">
+        </div>
+        <button type="button" class="btn btn-secondary"><a href="/filme/lista" style="color:white;text-decoration: none;">Voltar</a></button>
+        <input type="submit" class="btn btn-primary" value="Atualizar">
         
     </form>
 </div>

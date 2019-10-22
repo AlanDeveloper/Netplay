@@ -18,17 +18,24 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'mp4'])
 def index():
     if request.method == 'POST':
         title = request.form['title']
+        duration = request.form['duration']
         synopsis = request.form['synopsis']
         ageRange = request.form['ageRange']
         file = request.files['file']
         video = request.files['video']
         
-        newname = upload(file, 'images')
-        newname2 = upload(video, 'videos')
+        try:
+            if title != '' and duration != '' and synopsis != '' and ageRange != '':
+                newname = upload(file, 'images')
+                newname2 = upload(video, 'videos')
+
+            resp = film(title, duration, synopsis, ageRange, newname, newname2)
+            film.add(resp)
+            return redirect('/filme/lista')
+        except UnboundLocalError:
+            error = 'Todos os campos devem ser preenchidos!' 
+            return render_template('film/create.html', error=error)
         
-        resp = film(title, synopsis, ageRange, newname, newname2)
-        film.add(resp)
-        return redirect('/filme/lista')
     else:
         return render_template('film/create.html')
 
@@ -49,19 +56,29 @@ def delete(id):
 def update(id):
     if request.method == 'POST':
         title = request.form['title']
+        duration = request.form['duration']
         synopsis = request.form['synopsis']
         ageRange = request.form['ageRange'] 
         file = request.files['file']
         video = request.files['video']
 
-        newname = upload(file, 'images')
-        newname2 = upload(video, 'videos')
-
         resp = film.search(id)
-        os.remove(path.format('images') + resp.image)
-        os.remove(path.format('videos') + resp.video)
 
-        resp = film(title, synopsis, ageRange, newname, newname2)
+        if video and file:
+            newname = upload(file, 'images')
+            newname2 = upload(video, 'videos')
+            
+            os.remove(path.format('images') + resp.image)
+            os.remove(path.format('videos') + resp.video)
+            resp = film(title, duration, synopsis, ageRange, newname, newname2)
+        elif file:
+            newname = upload(file, 'images')
+            os.remove(path.format('images') + resp.image)
+            resp = film(title, duration, synopsis, ageRange, newname)
+        else: 
+            newname2 = upload(video, 'videos')
+            os.remove(path.format('videos') + resp.video)
+            resp = film(title, duration, synopsis, ageRange, None, newname2)
         resp.id = id
 
         film.update(resp)
