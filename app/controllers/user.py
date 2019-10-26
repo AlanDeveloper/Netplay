@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from flask import render_template, request, redirect
 from flask import Blueprint, flash, Flask, session
 from app.models import __init__
@@ -16,12 +15,12 @@ def index():
         resp = user(name, email, password)
         user.add(resp)
 
-        session['name'] = name
-        session['admin'] = resp.typeAdmin
+      # session['name'] = name
+      # session['admin'] = resp.typeAdmin
 
         return redirect('/')
     else:
-        return render_template('user/create.html')
+        return render_template('user/login.html')
 
 @user_bp.route('/entrar', methods=['GET', 'POST'])
 def login():
@@ -32,39 +31,48 @@ def login():
         u = user.search(email, password)
         if u:
             session['name'] = u.name
+            session['email'] = u.email
+            session['password'] = request.form['password']
+            session['id'] = u.id
             session['admin'] = u.typeAdmin
-
-            return redirect('/')
+            return redirect('/filme/lista')
         else: 
             error = 'Dados incorretos'
-            return render_template('user/create.html', error=error)
+            return render_template('user/login.html', error=error)
     else:
-        return render_template('user/create.html')        
+        return render_template('user/login.html')        
       
 @user_bp.route('/sair', methods=['GET', 'POST'])
 def exit():
-    session['name'] = None
-    session['admin'] = False
-
+    session.clear()
     return redirect('/')
 
-@user_bp.route('/del/<id>', methods=['GET', 'POST'])
-def delete(id):
-    user.delete(id)
-    return redirect('/usuario/lista')
+@user_bp.route('/excluir', methods=['GET', 'POST'])
+def delete():
+    email = session['email']
+    password = request.form['password']
+    u = user.search(email, password)
+    if u:
+        user.delete(session['id'])
+        return redirect('/usuario/sair')
+    else:
+        error = 'Senha incorreta'
+        ls = user.search(session['email'],session['password'])
 
-@user_bp.route('/atualizar/<id>', methods=['GET', 'POST'])
-def update(id):
+    return render_template('/user/update.html', ls=ls, error = error)
+
+@user_bp.route('/atualizar', methods=['GET', 'POST'])
+def update():
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
-
         resp = user(name, email, password)
-        resp.id = id
-
         user.update(resp)
-        return redirect('/usuario/lista')
+        session['email'] = request.form['email']
+        session['password'] = request.form['password']
+        session['name'] = request.form['name']
+        return redirect('/filme/lista')
     else:
-        ls = user.search(id)
+        ls = user.search(session['email'],session['password'])
         return render_template('user/update.html', ls=ls)
