@@ -15,8 +15,10 @@ def index():
         resp = user(name, email, password)
         user.add(resp)
 
-      # session['name'] = name
-      # session['admin'] = resp.typeAdmin
+        session['name'] = name
+        session['email'] = email
+        session['password'] = password
+        session['admin'] = False
 
         return redirect('/')
     else:
@@ -55,7 +57,7 @@ def delete():
         return redirect('/usuario/sair')
     else:
         error = 'Senha incorreta'
-        ls = user.search(session['email'],session['password'])
+        ls = user.search(session['email'], password)
 
     return render_template('/user/update.html', ls=ls, error = error)
 
@@ -65,14 +67,26 @@ def update():
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
+        if len(password) == 0:
+            password = session['password']
+
         u = user.search(session['email'], session['password'])
-        resp = user(name, email, password)
-        resp.id = u.id
-        resp.typeAdmin = u.typeAdmin
-        user.update(resp)
-        session['email'] = request.form['email']
-        session['password'] = request.form['password']
+        if u:
+            resp = user(name, email, password)
+            resp.id = u.id
+            resp.typeAdmin = u.typeAdmin
+            user.update(resp)
+
+            session['name'] = name
+            session['email'] = email
+            session['password'] = password
+
         return redirect('/filme/lista')
     else:
-        ls = user.search(session['email'],session['password'])
+        ls = user.search(session['email'], session['password'])
         return render_template('user/update.html', ls=ls)
+
+def search(email, password):
+    u = user.search(email, password)
+
+    return u
