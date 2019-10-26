@@ -34,10 +34,10 @@ def index():
             return redirect('/filme/lista')
         except UnboundLocalError:
             error = 'Todos os campos devem ser preenchidos!' 
-            return render_template('film/create.html', error=error, session=session)
+            return render_template('film/create.html', error=error)
         
     else:
-        return render_template('film/create.html', session=session)
+        return render_template('film/create.html')
 
 @film_bp.route('/lista', methods=['GET', 'POST'])
 def list():
@@ -85,14 +85,14 @@ def update(id):
         return redirect('/filme/lista')
     else:
         ls = film.search(id)
-        return render_template('film/update.html', ls=ls, session=session)
+        return render_template('film/update.html', ls=ls)
 
 
 @film_bp.route('/buscar', methods=['GET', 'POST'])
 def search():
     s = request.form['search']
     ls = film.searchName(s)
-    return render_template('film/list.html', ls=ls, session=session)
+    return render_template('film/list.html', ls=ls)
 
 def upload(file, folder):
     dt = strftime("%Y-%m-%d %H:%M:%S", gmtime())
@@ -110,7 +110,7 @@ def upload(file, folder):
 @film_bp.route('/info/<id>', methods=['GET', 'POST'])
 def info(id):
         ls = film.search(id)
-        return render_template('film/info.html', ls=ls, session=session)
+        return render_template('film/info.html', ls=ls)
 
 def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
