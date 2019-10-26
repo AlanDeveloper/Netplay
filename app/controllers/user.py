@@ -15,8 +15,10 @@ def index():
         resp = user(name, email, password)
         user.add(resp)
 
-    #   session['name'] = resp.name
-    #   session['admin'] = resp.typeAdmin
+        session['name'] = name
+        session['email'] = email
+        session['password'] = password
+        session['admin'] = False
 
         return redirect('/')
     else:
@@ -53,7 +55,7 @@ def delete():
     password = request.form['password']
     u = user.search(email, password)
     if u:
-        user.delete(session['id'])
+        user.delete(u.id)
         return redirect('/usuario/sair')
     else:
         error = 'Senha incorreta'
