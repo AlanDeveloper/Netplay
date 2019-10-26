@@ -21,9 +21,9 @@ def before():
     session['name'] = None 
     session['admin'] = False 
 
-    u = user('admin', 'admin@gmail.com', 'admin')
-    u.typeAdmin = True
-    user.add(u)
+    # u = user('admin', 'admin@gmail.com', 'admin')
+    # u.typeAdmin = True
+    # user.add(u)
 
     db.create_all()
 

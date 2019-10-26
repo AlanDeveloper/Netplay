@@ -9,8 +9,8 @@ control = Blueprint('control', __name__, url_prefix='/')
 
 @control.route('/')
 def index():
-    return render_template('printer/index.html', admin=session['admin'])
+    return render_template('printer/index.html', session=session)
 
 @control.route('/home')
 def home():
-    return render_template('printer/home.html')
+    return render_template('printer/home.html', session=session)

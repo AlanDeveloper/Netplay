@@ -25,21 +25,13 @@ class="navbar navbar-light bg-light">
     <img src="{{url_for('static', filename='images/logo.png')}}" width="100" height="100" alt="">
 </a>
 {% endif %}
-
-{% if not session %}
-<a class="nav-link" style="color:white;" href="/usuario/entrar">
-    <button type="button" style="position:relative;left:-85%;" class="btn btn-info">
-        Logar
-    </button>
-</a>
-{% endif %}
-{% if session %}
 <a class="nav-link" style="color:white;" href="#series">
     Séries
 </a>
 <a class="nav-link" style="color:white;" href="/filme/lista">
     Filmes
 </a>
+{% if session %}
 <li style="position:relative;top:-0.8em;" class="nav-item dropdown"> 
     <a class="nav-link dropdown-toggle" style="color:white;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Minha conta
@@ -54,12 +46,19 @@ class="navbar navbar-light bg-light">
     Adicionar Filmes
 </a>
 {% endif %}
+{% endif %}
+{% if not session %}
+<a class="nav-link" style="color:white;" href="/usuario/entrar">
+    <button type="button" style="position:relative;left:-85%;" class="btn btn-info">
+        Logar
+    </button>
+</a>
+{% endif %}
 <form style="position:relative;" action="/filme/buscar" method="post" class="form-inline">
     <input style="position:relative;width:60%;" class="form-control mr-sm-2" name="search" type="search"
         placeholder="Pesquisar" aria-label="Pesquisar">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
 </form>
-{% endif %}
   
 </nav>
 

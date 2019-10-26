@@ -15,12 +15,12 @@ def index():
         resp = user(name, email, password)
         user.add(resp)
 
-      # session['name'] = name
-      # session['admin'] = resp.typeAdmin
+    #   session['name'] = resp.name
+    #   session['admin'] = resp.typeAdmin
 
         return redirect('/')
     else:
-        return render_template('user/login.html')
+        return render_template('user/login.html', session=session)
 
 @user_bp.route('/entrar', methods=['GET', 'POST'])
 def login():
@@ -38,9 +38,9 @@ def login():
             return redirect('/filme/lista')
         else: 
             error = 'Dados incorretos'
-            return render_template('user/login.html', error=error)
+            return render_template('user/login.html', error=error, session=session)
     else:
-        return render_template('user/login.html')        
+        return render_template('user/login.html', session=session)
       
 @user_bp.route('/sair', methods=['GET', 'POST'])
 def exit():
@@ -59,7 +59,7 @@ def delete():
         error = 'Senha incorreta'
         ls = user.search(session['email'],session['password'])
 
-    return render_template('/user/update.html', ls=ls, error = error)
+    return render_template('/user/update.html', ls=ls, error=error, session=session)
 
 @user_bp.route('/atualizar', methods=['GET', 'POST'])
 def update():
@@ -75,4 +75,4 @@ def update():
         return redirect('/filme/lista')
     else:
         ls = user.search(session['email'],session['password'])
-        return render_template('user/update.html', ls=ls)
+        return render_template('user/update.html', ls=ls, session=session)
