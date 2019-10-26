@@ -15,10 +15,8 @@ def index():
         resp = user(name, email, password)
         user.add(resp)
 
-        session['name'] = name
-        session['email'] = email
-        session['password'] = password
-        session['admin'] = False
+      # session['name'] = name
+      # session['admin'] = resp.typeAdmin
 
         return redirect('/')
     else:
@@ -32,17 +30,15 @@ def login():
 
         u = user.search(email, password)
         if u:
-            session['name'] = u.name
             session['email'] = u.email
             session['password'] = request.form['password']
-            session['id'] = u.id
             session['admin'] = u.typeAdmin
             return redirect('/filme/lista')
         else: 
             error = 'Dados incorretos'
             return render_template('user/login.html', error=error)
     else:
-        return render_template('user/login.html')
+        return render_template('user/login.html')        
       
 @user_bp.route('/sair', methods=['GET', 'POST'])
 def exit():
@@ -61,7 +57,7 @@ def delete():
         error = 'Senha incorreta'
         ls = user.search(session['email'],session['password'])
 
-    return render_template('/user/update.html', ls=ls, error=error)
+    return render_template('/user/update.html', ls=ls, error = error)
 
 @user_bp.route('/atualizar', methods=['GET', 'POST'])
 def update():
@@ -69,17 +65,14 @@ def update():
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
+        u = user.search(session['email'], session['password'])
         resp = user(name, email, password)
+        resp.id = u.id
+        resp.typeAdmin = u.typeAdmin
         user.update(resp)
         session['email'] = request.form['email']
         session['password'] = request.form['password']
-        session['name'] = request.form['name']
         return redirect('/filme/lista')
     else:
         ls = user.search(session['email'],session['password'])
         return render_template('user/update.html', ls=ls)
-
-def search(email, password):
-    u = user.search(email, password)
-
-    return u
