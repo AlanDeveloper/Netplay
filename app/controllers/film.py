@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from random import choice
 import os
 from time import gmtime, strftime
 from werkzeug.utils import secure_filename
@@ -7,7 +8,8 @@ from flask import Blueprint, flash, Flask
 from app.models import __init__
 from app.models.film import film
 
-path = r"C:\\Users\usuar\Documents\GitHub\Netplay\app\static\\{}\\"
+path = os.path.dirname(os.path.abspath(__file__)).replace(
+    'controllers', 'static\\{}\\')
 
 from app import db
 
@@ -104,7 +106,7 @@ def upload(file, folder):
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file.save(os.path.join(path.format(folder), filename))
-        newname = dt.replace(' ', '-').replace(':', '-') + '.' + filename.split('.')[1]
+        newname = dt.replace(' ', '-').replace(':', '-') + '_' + generate(15) + '.' + filename.split('.')[1]
         os.rename(
             path.format(folder) + filename,
             path.format(folder) + newname
@@ -115,6 +117,13 @@ def upload(file, folder):
 def info(id):
         ls = film.search(id)
         return render_template('film/info.html', ls=ls)
+
+def generate(n):
+        caracters = '0123456789abcdefghijlmnopqrstuwvxz'
+        string = ''
+        for char in range(n):
+                string += choice(caracters)
+        return string
 
 def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS

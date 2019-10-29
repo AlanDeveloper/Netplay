@@ -78,6 +78,7 @@ def update():
             if u:
                 resp = user(name, email, newpassword)
                 resp.id = u.id
+                resp.typeAdmin = u.typeAdmin
                 user.update(resp)
 
                 session['name'] = name
