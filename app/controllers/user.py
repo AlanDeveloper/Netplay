@@ -61,27 +61,34 @@ def delete():
 
     return render_template('/user/update.html', ls=ls, error = error)
 
+
 @user_bp.route('/atualizar', methods=['GET', 'POST'])
 def update():
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
-        if len(password) == 0:
-            password = session['password']
+        newpassword = request.form['newpassword']
+        if session['password'] == password:
+            if len(newpassword) == 0:
+                newpassword = session['password']
 
-        u = user.search(session['email'], session['password'])
-        if u:
-            resp = user(name, email, password)
-            resp.id = u.id
-            resp.typeAdmin = u.typeAdmin
-            user.update(resp)
+            u = user.search(session['email'], session['password'])
+            if u:
+                resp = user(name, email, newpassword)
+                resp.id = u.id
+                resp.typeAdmin = u.typeAdmin
+                user.update(resp)
 
-            session['name'] = name
-            session['email'] = email
-            session['password'] = password
-
-        return redirect('/filme/lista')
+                session['name'] = name
+                session['email'] = email
+                session['password'] = newpassword
+                return redirect('/filme/lista')
+        else:
+            ls = user.search(session['email'], session['password'])
+            error = 'Senha incorreta'
+            return render_template('user/update.html', error=error, ls=ls)
+            
     else:
         ls = user.search(session['email'], session['password'])
         return render_template('user/update.html', ls=ls)
