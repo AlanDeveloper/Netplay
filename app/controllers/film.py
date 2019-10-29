@@ -73,12 +73,16 @@ def update(id):
             resp = film(title, duration, synopsis, ageRange, newname, newname2)
         elif file:
             newname = upload(file, 'images')
+
             os.remove(path.format('images') + resp.image)
             resp = film(title, duration, synopsis, ageRange, newname)
-        else: 
+        elif video: 
             newname2 = upload(video, 'videos')
+            
             os.remove(path.format('videos') + resp.video)
             resp = film(title, duration, synopsis, ageRange, None, newname2)
+        else:
+            resp = film(title, duration, synopsis, ageRange)
         resp.id = id
 
         film.update(resp)

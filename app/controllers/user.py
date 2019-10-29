@@ -69,15 +69,15 @@ def update():
         email = request.form['email']
         password = request.form['password']
         newpassword = request.form['newpassword']
+        
         if session['password'] == password:
             if len(newpassword) == 0:
                 newpassword = session['password']
 
-            u = user.search(session['email'], session['password'])
+            u = user.search(session['email'], password)
             if u:
                 resp = user(name, email, newpassword)
                 resp.id = u.id
-                resp.typeAdmin = u.typeAdmin
                 user.update(resp)
 
                 session['name'] = name
