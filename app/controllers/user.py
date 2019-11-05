@@ -5,6 +5,8 @@ from app.models.user import user
 
 user_bp = Blueprint('user', __name__, url_prefix='/usuario')
 
+
+
 @user_bp.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -20,9 +22,9 @@ def index():
         session['password'] = password
         session['admin'] = False
 
-        return redirect('/')
+        return redirect('/filme/lista')
     else:
-        return render_template('user/login.html')
+        return render_template('user/register.html')
 
 @user_bp.route('/entrar', methods=['GET', 'POST'])
 def login():
