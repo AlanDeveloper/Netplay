@@ -20,9 +20,9 @@
     <h1 style="text-align: center;" >{{ ls.title }}</h1>
     <br/>
     
-    <p  style="font-size:22.2px;">Duração: {{ls.duration}}</p>
+    <p style="font-size:22.2px;" id="duration"></p>
     <h3 style="color:#377BA8;font-family:'Georgia', serif;text-align: center;">Sinopse</h3>
-    <p  style="font-size:22.2px;">{{ls.synopsis}}</p>
+    <p style="font-size:22.2px;">{{ls.synopsis}}</p>
   </div>
 </div>
 
@@ -36,16 +36,18 @@
                 </button>
               </div>
               <div class="modal-body">
-                  <video width="800" height="450" controls>
-                      <source src="{{url_for('static', filename='videos/'+ls.video)}}"  type="video/mp4">
+                  <video id="video" width="800" height="450" style="outline: none;" controls controlsList="nodownload">
+                      <source src="{{url_for('static', filename='videos/'+ls.video)}}" type="video/mp4">
                   </video>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-secondary" id="close" data-dismiss="modal">Fechar</button>
               </div>
             </div>
           </div>
         </div>
     </div>
+    <script src="{{url_for('static', filename='js/jquery.js')}}"></script>
+    <script src="{{url_for('static', filename='js/video.js')}}"></script>
   
 {% endblock %}

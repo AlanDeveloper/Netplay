@@ -17,6 +17,7 @@ Flask-WTF==0.14.2
 infinity==1.4
 intervals==0.8.1
 itsdangerous==1.1.0
+JQuery==3.1.4
 Jinja2==2.10.1
 MarkupSafe==1.1.1
 psycopg2==2.8.2

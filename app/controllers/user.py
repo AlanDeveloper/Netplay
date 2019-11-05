@@ -15,6 +15,7 @@ def index():
         resp = user(name, email, password)
         user.add(resp)
 
+        session['id'] = resp.id
         session['name'] = name
         session['email'] = email
         session['password'] = password
@@ -32,6 +33,8 @@ def login():
 
         u = user.search(email, password)
         if u:
+            session['id'] = u.id
+            session['name'] = u.name
             session['email'] = u.email
             session['password'] = request.form['password']
             session['admin'] = u.typeAdmin
