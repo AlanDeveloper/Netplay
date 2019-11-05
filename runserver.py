@@ -20,18 +20,22 @@ app.register_blueprint(user_bp)
 @app.before_first_request
 def before():
     u = user.search('admin@gmail.com', 'admin')
-    
     if not u:
         u = user('admin', 'admin@gmail.com', 'admin')
         u.typeAdmin = True
         user.add(u)
-
     db.create_all()
 
 @app.route('/drop')
 def drop():
     db.drop_all()
 
+@app.before_request
+def before_request_func():
+    if (request.path != '/' and request.path !='/usuario/entrar' and request.path !='/usuario/') and (not request.path.startswith('/static')):
+        if not session:
+            return redirect(control.url_prefix)
+            
 @app.route('/')
 def index():
     return redirect(control.url_prefix)
