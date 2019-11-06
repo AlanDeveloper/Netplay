@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='plugins/slick/slick.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='plugins/slick/slick-theme.css')}}">
 <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet">
@@ -9,58 +10,71 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- FancyBox -->
+<link rel="stylesheet" href="/plugins/fancybox/jquery.fancybox.min.css">
 <nav style="position:relative;padding-left:10%;height:25%;background:black!important;"
 class="navbar navbar-light bg-light">
 {% if not session %}
-    <a href="/" style="position:relative;" class="navbar-brand">
-        <img src="{{url_for('static', filename='images/logo.png')}}" width="100" height="100" alt="">
-    </a>
-    <h1 style="position:relative;left:-5%;">NetPlay</h1>
+<a href="/" style="position:relative;" class="navbar-brand">
+    <img src="{{url_for('static', filename='images/logo.png')}}" width="100" height="100" alt="">
+</a>
+<h1 style="position:relative;left:-5%;">NetPlay </h1>
 
 {% endif %}
 {% if session %}
-    <a href="/" class="navbar-brand">
-        <img src="{{url_for('static', filename='images/logo.png')}}" width="100" height="100" alt="">
-    </a>
-    <a class="nav-link" style="color:white;" href="#series">Séries</a>
-    <a class="nav-link" style="color:white;" href="/filme/lista">Filmes</a>
+<a href="/filme/lista" class="navbar-brand">
+    <img src="{{url_for('static', filename='images/logo.png')}}" width="100" height="100" alt="">
+</a>
+<a class="nav-link" style="color:white;" href="#series">
+    Séries
+</a>
+<a class="nav-link" style="color:white;" href="/filme/lista">
+    Filmes
+</a>
 {% endif %}
 
 {% if session %}
-    <div class="nav-item dropdown">        
-        <a class="nav-link dropdown-toggle" style="color:white;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Minha conta
-        </a>    
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            {% if not session['admin']: %} 
-                <a class="dropdown-item" href="/usuario/assistidos">Assistidos</a> 
-            {% endif %}
-            <a class="dropdown-item" href="/usuario/atualizar">Alterar</a> 
-            <a class="dropdown-item" href="/usuario/sair">Sair</a>
-        </div>
+<div class="nav-item dropdown">        
+    <a class="nav-link dropdown-toggle" style="color:white;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Minha conta
+    </a>   
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        {% if not session['admin']: %} 
+            <a class="dropdown-item" href="/usuario/assistidos">Assistidos</a> 
+        {% endif %} 
+        <a class="dropdown-item" href="/usuario/atualizar">Alterar</a> 
+        <a class="dropdown-item" href="/usuario/sair">Sair</a>
     </div>
-    {% if session['admin'] == true %}
-        <a class="nav-link" style="color:white;" href="/filme">Adicionar Filmes</a>
-    {% endif %}
+</div>
+{% if session['admin'] == true %}
+<a class="nav-link" style="color:white;" href="/filme">
+    Adicionar Filmes
+</a>
+{% endif %}
 {% endif %}
 {% if not session %}
-    <a class="nav-link" style="color:white;" href="/usuario/entrar">
-        <button type="button" style="position:relative;left:-85%;" class="btn btn-info">Logar</button>
-    </a>
+<a class="nav-link" style="color:white;" href="/usuario/entrar">
+    <button type="button" style="position:relative;left:-85%;" class="btn btn-info">
+        Logar
+    </button>
+</a>
+
 {% endif %}
 {% if session %}
-    <form style="position:relative;" action="/filme/buscar" method="post" class="form-inline">
-        <input style="position:relative;width:60%;" class="form-control mr-sm-2" name="search" type="search"
-            placeholder="Pesquisar" aria-label="Pesquisar">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-    </form>
+<form style="position:relative;" action="/filme/buscar" method="post" class="form-inline">
+    <input style="position:relative;width:60%;" class="form-control mr-sm-2" name="search" type="search"
+        placeholder="Pesquisar" aria-label="Pesquisar">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+</form>
 {% endif %}
 
 </nav>
 
-{% block body %}{% endblock %}
+{% block body %}
+{% endblock %}
 
-<script src="{{url_for('static', filename='plugins/jquery.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
 crossorigin="anonymous"></script>
