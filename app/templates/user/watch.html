@@ -1,0 +1,15 @@
+{% extends 'layout/base.html' %}
+{% block body %}
+<table>
+    <tr>
+        <th>Título</th>
+        <th>sda</th>
+    </tr>
+    {% for item in ls %}
+        <tr>
+            <td>{{ item.title }}</td>
+            <td><a href="/filme/info/{{ item.id }}">Assistir</a></td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

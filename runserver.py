@@ -19,11 +19,16 @@ app.register_blueprint(user_bp)
 
 @app.before_first_request
 def before():
+    db.create_all()
+    
     u = user.search('admin@gmail.com', 'admin')
     if not u:
         u = user('admin', 'admin@gmail.com', 'admin')
         u.typeAdmin = True
         user.add(u)
+
+@app.route('/create')
+def create():
     db.create_all()
 
 @app.route('/drop')

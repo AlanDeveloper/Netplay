@@ -40,4 +40,4 @@ class film(db.Model):
         return film.query.filter_by(id=id).first()
 
     def searchName(name):
-        return film.query.filter(film.title.like('%'+name+'%')).all()
+        return film.query.filter(film.title.ilike('%'+name+'%')).all()

@@ -5,15 +5,13 @@
   <img src="{{url_for('static', filename='images/'+ls.image)}}" width="500px" height="500px" alt="">
   </div>
   <div style="position:relative;top:1em;" class="col">
-      
-    <a href="/filme/lista" class="btn btn-primary" >Voltar</a>
     <button class="btn btn-light" style="color:white;box-shadow: 1px 1px gray;background-color:{% if (ls.ageRange == 'L'): %} {% print('green') %} {% endif %}
     {% if (ls.ageRange == '10'): %} {% print('blue') %} {% endif %}
     {% if (ls.ageRange == '12'): %} {% print('yellow') %} {% endif %}
     {% if (ls.ageRange == '14'): %} {% print('orange') %} {% endif %}
     {% if (ls.ageRange == '16'): %} {% print('red') %} {% endif %}
     {% if (ls.ageRange == '18'): %} {% print('black') %} {% endif %}" disabled="disabled" >{{ ls.ageRange }}</button>        
-    <button  type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalExemplo" 
+    <button  type="button" class="btn btn-outline-primary" id="watch" data-toggle="modal" data-target="#modalExemplo" 
     {% if (session['admin'] == true ): %} {% print('disabled') %} {% endif %}>Assistir</button>    <br/>
     <br/>
     
