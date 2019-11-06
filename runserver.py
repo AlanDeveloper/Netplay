@@ -42,10 +42,13 @@ def drop():
     db.drop_all()
 
 @app.before_request
-def before_request_func():
+def before_request():
     if (request.path != '/' and request.path !='/usuario/entrar' and request.path !='/usuario/') and (not request.path.startswith('/static')):
         if not session:
             return redirect(control.url_prefix)
+    if request.path == '/filme/':
+        if session['admin'] == False:
+            return "Acesso bloqueado!"x)
             
 @app.route('/')
 def index():
