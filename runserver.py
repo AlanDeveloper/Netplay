@@ -31,6 +31,12 @@ def before():
 def create():
     db.create_all()
 
+    u = user.search('admin@gmail.com', 'admin')
+    if not u:
+        u = user('admin', 'admin@gmail.com', 'admin')
+        u.typeAdmin = True
+        user.add(u)
+
 @app.route('/drop')
 def drop():
     db.drop_all()

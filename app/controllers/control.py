@@ -15,8 +15,8 @@ def index():
     else:
         return redirect('/usuario/entrar')
 
-@control.route('/watch', methods=['POST'])
-def watch():
+@control.route('/assistidos', methods=['POST'])
+def watching():
     id = int(session['id'])
     video = int(request.form['video'])
     time = request.form['time']
@@ -31,8 +31,8 @@ def watch():
     
     return jsonify({'response': True})
 
-@control.route('/watching', methods=['POST'])
-def watching():
+@control.route('/tempo', methods=['POST'])
+def time_watch():
     id = int(session['id'])
     video = int(request.form['video'])
     

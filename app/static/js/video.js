@@ -4,15 +4,21 @@ const close = document.querySelector('#close');
 const video = document.querySelector('#video');
 const jquery = $;
 
+(function () {
+    var onDurationChange = function () {
+        if (video.readyState) {
+            dr.innerText = "Duração: " + convertTime(video.duration);
+        }
+    };
+
+    video.addEventListener('durationchange', onDurationChange);
+    onDurationChange();
+}());
 video.oncontextmenu = function () { return false; }
-// video.addEventListener('loadedmetadata', function (e) {
-//     console.log('ola');
-//     dr.innerText = "Duração: " + convertTime(video.duration);
-// });
 
 watch.addEventListener('click', function () {
     jquery.ajax({
-        url: '/watching',
+        url: '/tempo',
         type: 'POST',
         data: {
             video: url[url.length - 1]
@@ -20,7 +26,6 @@ watch.addEventListener('click', function () {
         async: true
     }).done(function (e) {
         video.currentTime = e.time
-        console.log(e.time);
     });
 });
 

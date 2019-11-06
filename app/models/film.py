@@ -1,19 +1,17 @@
 from .. import db
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String
 
 class film(db.Model):
     __tablename__ = 'film'
     id = Column(Integer, primary_key=True)
     title = Column(String(100), unique=True, nullable=False)
-    duration = Column(String(50), nullable=False)
     synopsis = Column(String(1000), nullable=False)
     ageRange = Column(String(5), nullable=False)
     image = Column(String(1000), nullable=False)
     video = Column(String(1000), nullable=False)
 
-    def __init__(self, title, duration, synopsis, ageRange, image = None, video = None):
+    def __init__(self, title, synopsis, ageRange, image = None, video = None):
         self.title = title
-        self.duration = duration
         self.synopsis = synopsis
         self.ageRange = ageRange
         if image:
