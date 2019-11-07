@@ -48,7 +48,7 @@ def before_request():
             return redirect(control.url_prefix)
     if request.path == '/filme/':
         if session['admin'] == False:
-            return "Acesso bloqueado!"x)
+            return "Acesso bloqueado!"
             
 @app.route('/')
 def index():
