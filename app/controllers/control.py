@@ -10,10 +10,8 @@ control = Blueprint('control', __name__, url_prefix='/')
 
 @control.route('/')
 def index():
-    if session:
-        return render_template('printer/home.html')
-    else:
-        return redirect('/usuario/entrar')
+    return render_template('user/login.html')
+
 
 @control.route('/assistidos', methods=['POST'])
 def watching():
@@ -41,4 +39,4 @@ def time_watch():
         return jsonify({'time': f.time})
     else:
         return jsonify({'time': 0})
-    
+
