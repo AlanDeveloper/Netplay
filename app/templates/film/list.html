@@ -5,13 +5,12 @@
     <h1>Filmes</h1>
     <br/>
     <div class="row" >            
-    {% for item in ls %}
-            
-       <div class="card" style="width: 18rem;">
+    {% for item in ls %}     
+       <div class="card" style="position:relative;margin:1%;width: 18rem;">
             <img  src="{{url_for('static', filename='images/'+item.image)}}" width="400px" height="400px" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">{{ item.title }}</h5>
-              <a href="info/{{item.id}}" style="position:relative;width:100%;" class="btn btn-primary">Info</a>
+              <a href="info/{{item.id}}" style="position:relative;width:100%;" class="btn btn-outline-info">Assistir</a>
               <br/>
               <br/>
               {% if session['admin'] %}
