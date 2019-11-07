@@ -33,9 +33,10 @@ def before_request_func():
         if not session:
             return redirect(control.url_prefix)
 
-    if request.path == '/usuario/' or request.path == '/' or request.path == '/usuario/entrar':
-            
-        return redirect('/home')
+    if session:
+        if request.path == '/usuario/' or request.path == '/' or request.path == '/usuario/entrar':
+                
+            return redirect('/home')
 
     if request.path == '/filme/':
         if session['admin'] == False:
