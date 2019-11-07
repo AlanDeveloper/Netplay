@@ -3,10 +3,9 @@ from random import choice
 import os
 from time import gmtime, strftime
 from werkzeug.utils import secure_filename
-from flask import render_template, request, redirect, session
-from flask import Blueprint, flash, Flask
-from app.models import __init__
+from flask import Blueprint, Flask, render_template, request, redirect, session
 from app.models.film import film
+from app.models import __init__
 
 path = os.path.dirname(os.path.abspath(__file__)).replace(
     'controllers', 'static\\{}\\')

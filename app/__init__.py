@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-__version__ = '0.1'
+# __version__ = '0.1'
 from flask import Flask
 from flask_bootstrap import Bootstrap
-from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
 

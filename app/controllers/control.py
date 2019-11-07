@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from flask import render_template, request, redirect, session, jsonify
-from flask import Blueprint, flash, Flask
-from app.models import __init__
+from flask import Blueprint, Flask, render_template, request, redirect, session, jsonify
 from app.models.film_user import film_user
+from app.models.film import film
+from app.models import __init__
 
 from app import db
 
@@ -12,6 +12,17 @@ control = Blueprint('control', __name__, url_prefix='/')
 def index():
     return render_template('user/login.html')
 
+
+@control.route('/home', methods=['GET', 'POST'])
+def list_watching():
+    items = []
+    ls = film_user.searchFilms(session['id'])
+
+    for item in ls:
+        f = film.search(item.film_id)
+        items.append(f)
+
+    return render_template('printer/home.html', ls=items)
 
 @control.route('/assistidos', methods=['POST'])
 def watching():

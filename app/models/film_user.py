@@ -3,8 +3,8 @@ from sqlalchemy import Column, Integer, ForeignKey, String
 
 class film_user(db.Model):
     __tablename__ = 'film_user'
-    film_id = Column(Integer, ForeignKey('film.id'), primary_key=True)
-    user_id = Column(Integer, ForeignKey('user.id'), primary_key=True)
+    film_id = Column(Integer, ForeignKey('film.id', ondelete='CASCADE'), primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id', ondelete='CASCADE'), primary_key=True)
     time = Column(String(1000))
     
     users = db.relationship('user', backref='film_user')

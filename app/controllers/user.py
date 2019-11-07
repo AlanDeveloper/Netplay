@@ -1,9 +1,6 @@
-from flask import render_template, request, redirect
-from flask import Blueprint, flash, Flask, session
-from app.models import __init__
+from flask import Blueprint, Flask, session, render_template, request, redirect
 from app.models.user import user
-from app.models.film import film
-from app.models.film_user import film_user
+from app.models import __init__
 
 user_bp = Blueprint('user', __name__, url_prefix='/usuario')
 
@@ -23,7 +20,7 @@ def index():
         session['password'] = password
         session['admin'] = False
 
-        return redirect('/usuario/assistidos')
+        return redirect('/home')
     else:
         return render_template('user/register.html')
 
@@ -41,7 +38,7 @@ def login():
             session['email'] = u.email
             session['password'] = request.form['password']
             session['admin'] = u.typeAdmin
-            return redirect('/usuario/assistidos')
+            return redirect('/home')
         else: 
             error = 'Dados incorretos'
             return render_template('user/login.html', error=error)
@@ -99,19 +96,6 @@ def update():
     else:
         ls = user.search(session['email'], session['password'])
         return render_template('user/update.html', ls=ls)
-
-
-
-@user_bp.route('/assistidos', methods=['GET', 'POST'])
-def list_watching():
-    items = []
-    ls = film_user.searchFilms(session['id'])
-
-    for item in ls:
-        f = film.search(item.film_id)
-        items.append(f)
-
-    return render_template('printer/home.html', ls=items)
 
 def search(email, password):
     u = user.search(email, password)
