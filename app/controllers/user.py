@@ -23,9 +23,10 @@ def index():
         session['password'] = password
         session['admin'] = False
 
-        return redirect('/filme/lista')
+        return redirect('/usuario/assistidos')
     else:
         return render_template('user/register.html')
+
 
 @user_bp.route('/entrar', methods=['GET', 'POST'])
 def login():
@@ -40,7 +41,7 @@ def login():
             session['email'] = u.email
             session['password'] = request.form['password']
             session['admin'] = u.typeAdmin
-            return redirect('/filme/lista')
+            return redirect('/usuario/assistidos')
         else: 
             error = 'Dados incorretos'
             return render_template('user/login.html', error=error)
@@ -99,6 +100,8 @@ def update():
         ls = user.search(session['email'], session['password'])
         return render_template('user/update.html', ls=ls)
 
+
+
 @user_bp.route('/assistidos', methods=['GET', 'POST'])
 def list_watching():
     items = []
@@ -106,10 +109,9 @@ def list_watching():
 
     for item in ls:
         f = film.search(item.film_id)
-        
         items.append(f)
 
-    return render_template('user/watch.html', ls=items)
+    return render_template('printer/home.html', ls=items)
 
 def search(email, password):
     u = user.search(email, password)
