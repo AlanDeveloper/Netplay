@@ -1,5 +1,5 @@
 from .. import db
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Boolean
 
 class film(db.Model):
     __tablename__ = 'film'
@@ -9,11 +9,13 @@ class film(db.Model):
     ageRange = Column(String(5), nullable=False)
     image = Column(String(1000), nullable=False)
     video = Column(String(1000), nullable=False)
+    active = Column(Boolean, default=False, nullable=False)
 
     def __init__(self, title, synopsis, ageRange, image = None, video = None):
         self.title = title
         self.synopsis = synopsis
         self.ageRange = ageRange
+        
         if image:
             self.image = image
         if video:

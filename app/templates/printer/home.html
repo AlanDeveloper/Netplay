@@ -2,50 +2,31 @@
 
 {% block body %}
 <div class="container" >
+    {% if session['admin'] %}
+        <a href="/selecionar">Editar</a>
+    {% endif %}
     <section style="position:relative;width:100%;height:25em;" class="service-section bg-gray section">
         <br/><br/><br/>
         <div style="position:relative;color:#377BA8;width:100%;" class="section-title text-center">
-            <h1> Lançamentos
-                <span>Filmes 2019</span>
-            </h1>
+            <h1> Lançamentos<span>Filmes 2019</span></h1>
         </div>
         <br/>
         <div style="position:relative;width:80%;left:9.5%;" class="row items-container clearfix">
-            <div class="item">
-                <div class="inner-box">
-                    <div class="image-holder">
-                        <img src="{{url_for('static', filename='images/capitamarvel.jpg')}}" class="img-responsive"alt="video-gallery">
+            {% for item in active %}
+                {% if item.active %}
+                    <div class="item" style="margin: 10px;outline: none;cursor: default;">
+                        <div class="inner-box">
+                            <div class="image-holder">
+                                <img src="{{url_for('static', filename='images/'+item.image)}}" width="300px" height="400px" class="card-img-top" alt="...">
+                                <button type="button" class="btn-btn-primary" style="position: relative;top: -200px;right: -110px;">
+                                    <a href="/filme/info/{{ item.id }}">Assistir</a>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div style="position:relative;width:80%;" class="item">
-                <div class="inner-box">
-                    <div class="image-holder">
-                        <img style="width:82%;" src="{{url_for('static', filename='images/deadpool.jpg')}}" class="img-responsive" alt="video-gallery">
-                    </div>
-                </div>
-            </div>
-            <div style="position:relative;width:80%;" class="item">
-                <div class="inner-box">
-                    <div class="image-holder">
-                        <img  src="{{url_for('static', filename='images/longedolar.jpg')}}" class="img-responsive" alt="video-gallery">
-                    </div>
-                </div>
-            </div>
-            <div style="position:relative;width:80%;" class="item">
-                <div class="inner-box">
-                    <div class="image-holder">
-                        <img style="width:85%;" src="{{url_for('static', filename='images/reileao.jpg')}}" class="img-responsive" alt="video-gallery">
-                    </div>
-                </div>
-            </div>
-            <div style="position:relative;width:80%;" class="item">
-                <div class="inner-box">
-                    <div class="image-holder">
-                        <img style="width:82%;" src="{{url_for('static', filename='images/toystore.jpeg')}}" class="img-responsive" alt="video-gallery">
-                    </div>
-                </div>
-            </div>
+                {% endif %}
+            {% endfor %}
+        </div>
     </section>
     
     <section id="series" style="position:relative;top:10em;width:100%;height:25em;" class="service-section bg-gray section">
@@ -97,24 +78,29 @@
                 </div>
             </div>
     </section>
-    </div>
-    {% if ls: %}    
-    <div style="position:relative;top:16em;width:80%;left:40%;" class="row">
-        <h1 class="text-center">Continuar assistindo</h1>
-        <div  style="position:relative;top:2em;left:-30%;width:100%;" class="row" >  
-            {% for item in ls %}     
-                <div class="card" style="position:relative;margin:1%;width: 18rem;">
-                    <img  src="{{url_for('static', filename='images/'+item.image)}}" width="400px" height="400px" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ item.title }}</h5>
-                        <a href="/filme/info/{{item.id}}" style="position:relative;width:100%;" class="btn btn-outline-info">Assistir</a>
-                        <br/>
+    </div> 
+    {% if not session['admin'] %}
+        <div style="position:relative;top:16em;width:80%;left:40%;" class="row">
+            <h1 class="text-center">Continuar assistindo</h1>
+            {% for item in ls %}
+                <div style="position:relative;top:2em;left:-30%;width:100%;" class="row" >  
+                    <div class="card" style="position:relative;margin:1%;width: 18rem;">
+                        <img  src="{{url_for('static', filename='images/'+item.image)}}" width="400px" height="400px" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.title }}</h5>
+                            <a href="/filme/info/{{item.id}}" style="position:relative;width:100%;" class="btn btn-outline-info">Assistir</a>
+                            <br/>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
-              </div>   
-        {% endif %}
-    </div>
+            {% if not ls[0] %}
+            <div style="position:relative;top:2em;left:-30%;width:100%;" class="row">
+                    <p>Lista vazia.</p>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
 </div>
 
 <script src="{{url_for('static', filename='plugins/jquery.js')}}"></script>
