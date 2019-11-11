@@ -3,24 +3,46 @@
 {% block body %}
 <div class="container" >
     {% if session['admin'] %}
-        <a href="/selecionar">Editar</a>
+    <br/>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Editar filmes         
+        </a>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                <form action="/selecionar" method="post">
+                    <table>
+                        <tr>
+                            <th>Nome</th>
+                        </tr>
+                        {% for item in active %}
+                        <tr>
+                            <td>{{ item.title }}</td>
+                            <td><input type="checkbox" value="{{ item.id }}" name="select" {% if item.active: %} {% print('checked') %} {% endif %}></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <br/>
+                    <input class="btn btn-success" type="submit" value="Atualizar">
+                </form>
+            </div>
+        </div>
     {% endif %}
     <section style="position:relative;width:100%;height:25em;" class="service-section bg-gray section">
         <br/><br/><br/>
         <div style="position:relative;color:#377BA8;width:100%;" class="section-title text-center">
-            <h1> Lançamentos<span>Filmes 2019</span></h1>
+            <h1> Lançamentos <span>Filmes 2019</span></h1>
         </div>
         <br/>
         <div style="position:relative;width:80%;left:9.5%;" class="row items-container clearfix">
             {% for item in active %}
                 {% if item.active %}
-                    <div class="item" style="margin: 10px;outline: none;cursor: default;">
-                        <div class="inner-box">
+                    <div style="position:relative;width:80%;" class="item" >
+                        <div class="inner-box" >
                             <div class="image-holder">
-                                <img src="{{url_for('static', filename='images/'+item.image)}}" width="300px" height="400px" class="card-img-top" alt="...">
-                                <button type="button" class="btn-btn-primary" style="position: relative;top: -200px;right: -110px;">
-                                    <a href="/filme/info/{{ item.id }}">Assistir</a>
-                                </button>
+                                <img src="{{url_for('static', filename='images/'+item.image)}}" style="width:280px;height:400px"  class="img-responsive" alt="...">
+                                    <a href="/filme/info/{{ item.id }}">
+                                        <i id="icon" style="position: relative;left: 45%;color: rgba(255, 255, 255, 0.83);top:-4em;font-size:55px;" class="fa fa-play-circle-o"                                 aria-hidden="true"></i>
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -38,70 +60,102 @@
             <div class="item">
                 <div class="inner-box">
                     <div class="image-holder">
-                        <img style="width:82%" src="{{url_for('static', filename='images/sobrenatural.jpg')}}" class="img-responsive" alt="video-gallery">
+                        <img style="width:280px;height:400px"src="{{url_for('static', filename='images/sobrenatural.jpg')}}" class="img-responsive" alt="video-gallery">
+                        <a href="#">
+                            <i id="icon" style="position: relative;left: 45%;color: rgba(255, 255, 255, 0.83);top:-4em;font-size:55px;" class="fa fa-play-circle-o"         aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
             </div>
             <div style="position:relative;width:80%;" class="item">
                 <div class="inner-box">
                     <div class="image-holder">
-                        <img style="width:85%;" src="{{url_for('static', filename='images/stranger.jpg')}}" class="img-responsive" alt="video-gallery">
+                        <img style="width:280px;height:400px" src="{{url_for('static', filename='images/stranger.jpg')}}" class="img-responsive" alt="video-gallery">
+                        <a href="#">
+                            <i id="icon" style="position: relative;left: 45%;color: rgba(255, 255, 255, 0.83);top:-4em;font-size:55px;" class="fa fa-play-circle-o"         aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
             </div>
             <div style="position:relative;width:80%;" class="item">
                 <div class="inner-box">
                     <div class="image-holder">
-                        <img style="width:85%;" src="{{url_for('static', filename='images/breakingbad.jpg')}}" class="img-responsive" alt="video-gallery">
+                        <img style="width:280px;height:400px" src="{{url_for('static', filename='images/breakingbad.jpg')}}" class="img-responsive" alt="video-gallery">
+                        <a href="#">
+                            <i id="icon" style="position: relative;left: 45%;color: rgba(255, 255, 255, 0.83);top:-4em;font-size:55px;" class="fa fa-play-circle-o"         aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
             </div>
             <div style="position:relative;width:80%;" class="item">
                 <div class="inner-box">
                     <div class="image-holder">
-                        <img style="width:87%;" src="{{url_for('static', filename='images/anatomy.jpg')}}" class="img-responsive" alt="video-gallery">
+                        <img style="width:280px;height:400px" src="{{url_for('static', filename='images/anatomy.jpg')}}" class="img-responsive" alt="video-gallery">
+                        <a href="#">
+                            <i id="icon" style="position: relative;left: 45%;color: rgba(255, 255, 255, 0.83);top:-4em;font-size:55px;" class="fa fa-play-circle-o"         aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
             </div>
             <div style="position:relative;width:80%;" class="item">
                 <div class="inner-box">
                     <div class="image-holder">
-                        <img style="width:85%;" src="{{url_for('static', filename='images/twd.jpg')}}" class="img-responsive" alt="video-gallery">
+                        <img style="width:280px;height:400px" src="{{url_for('static', filename='images/twd.jpg')}}" class="img-responsive" alt="video-gallery">
+                        <a href="#">
+                            <i id="icon" style="position: relative;left: 45%;color: rgba(255, 255, 255, 0.83);top:-4em;font-size:55px;" class="fa fa-play-circle-o"         aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
             </div>
             <div style="position:relative;width:80%;" class="item">
                 <div class="inner-box">
                     <div class="image-holder">
-                        <img style="width:85%;" src="{{url_for('static', filename='images/odeiaochris.jpg')}}" class="img-responsive" alt="video-gallery">
+                        <img style="width:280px;height:400px" src="{{url_for('static', filename='images/odeiaochris.jpg')}}" class="img-responsive" alt="video-gallery">
+                        <a href="#">
+                            <i id="icon" style="position: relative;left: 45%;color: rgba(255, 255, 255, 0.83);top:-4em;font-size:55px;" class="fa fa-play-circle-o"         aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
             </div>
+        </div>         
     </section>
-    </div> 
     {% if not session['admin'] %}
-        <div style="position:relative;top:16em;width:80%;left:40%;" class="row">
-            <h1 class="text-center">Continuar assistindo</h1>
+    <section style="position:relative;top:13em;width:100%;height:30em;" class="service-section bg-gray section">
+        <br/><br/><br/>
+        <div style="position:relative;color:#377BA8;width:100%;" class="section-title text-center">
+            <h1> Continuar assistindo</span></h1>
+        </div>
+        <br/>
+        <div style="position:relative;width:80%;left:9.5%;" class="row items-container clearfix">
             {% for item in ls %}
-                <div style="position:relative;top:2em;left:-30%;width:100%;" class="row" >  
-                    <div class="card" style="position:relative;margin:1%;width: 18rem;">
-                        <img  src="{{url_for('static', filename='images/'+item.image)}}" width="400px" height="400px" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ item.title }}</h5>
-                            <a href="/filme/info/{{item.id}}" style="position:relative;width:100%;" class="btn btn-outline-info">Assistir</a>
+            <div  class="item">
+                <div class="inner-box">
+                    <div class="image-holder">
+                        <div class="card" style="position:relative;margin:1%;width: 18rem;">
+                            <img  src="{{url_for('static', filename='images/'+item.image)}}" width="400px" height="400px" class="card-img-top" alt="...">
+                            <div class="card-body">                                    
+                                <h5 class="card-title">{{ item.title }}</h5>
+                                <a href="/filme/info/{{item.id}}">          
+                                    <i id="icon" style="position: relative;left: 45%;color: rgba(255,255, 255, 0.83);top:-5em;font-size:55px;" class="fa              fa-play-circle-o" aria-hidden="true"></i>
+                                </a>
+                            </div>
                             <br/>
                         </div>
                     </div>
                 </div>
+            </div>            
             {% endfor %}
             {% if not ls[0] %}
             <div style="position:relative;top:2em;left:-30%;width:100%;" class="row">
                     <p>Lista vazia.</p>
-                </div>
+            </div>
             {% endif %}
-        </div>
     {% endif %}
+    </div>
+</section>
 </div>
+<br/>
+<br/>
 
 <script src="{{url_for('static', filename='plugins/jquery.js')}}"></script>
 <script src="{{url_for('static', filename='plugins/bootstrap.min.js')}}"></script>
