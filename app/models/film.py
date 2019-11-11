@@ -11,15 +11,15 @@ class film(db.Model):
     video = Column(String(1000), nullable=False)
     active = Column(Boolean, default=False, nullable=False)
 
-    def __init__(self, title, synopsis, ageRange, image = None, video = None):
+    def __init__(self, title, synopsis, ageRange, newname=None, newname2=None):
         self.title = title
         self.synopsis = synopsis
         self.ageRange = ageRange
-        
-        if image:
-            self.image = image
-        if video:
-            self.video = video
+
+        if newname:
+            self.image = newname
+        if newname2:
+            self.video = newname2
 
     def add(film):
         db.session.add(film)

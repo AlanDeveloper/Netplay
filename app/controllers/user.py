@@ -2,6 +2,8 @@ from flask import Blueprint, Flask, session, render_template, request, redirect
 from app.models.user import user
 from app.models import __init__
 
+from sqlalchemy import exc
+
 user_bp = Blueprint('user', __name__, url_prefix='/usuario')
 
 @user_bp.route('/', methods=['GET', 'POST'])
@@ -11,19 +13,23 @@ def index():
         email = request.form['email']
         password = request.form['password']
         
-        resp = user(name, email, password)
-        user.add(resp)
+        try:
+            resp = user(name, email, password)
+            user.add(resp)
 
-        session['id'] = resp.id
-        session['name'] = name
-        session['email'] = email
-        session['password'] = password
-        session['admin'] = False
+            session['id'] = resp.id
+            session['name'] = name
+            session['email'] = email
+            session['password'] = password
+            session['admin'] = False
 
-        return redirect('/home')
+            return redirect('/home')
+        except exc.IntegrityError:
+            error = 'Email já cadastrado!'
+            return render_template('user/register.html', error=error)
+
     else:
         return render_template('user/register.html')
-
 
 @user_bp.route('/entrar', methods=['GET', 'POST'])
 def login():

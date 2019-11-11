@@ -7,6 +7,8 @@ from flask import Blueprint, Flask, render_template, request, redirect, session
 from app.models.film import film
 from app.models import __init__
 
+from sqlalchemy import exc
+
 path = os.path.dirname(os.path.abspath(__file__)).replace(
     'controllers', 'static\\{}\\')
 
@@ -28,12 +30,15 @@ def index():
             if title != '' and synopsis != '' and ageRange != '':
                 newname = upload(file, 'images')
                 newname2 = upload(video, 'videos')
-
             resp = film(title, synopsis, ageRange, newname, newname2)
             film.add(resp)
+
             return redirect('/filme/lista')
         except UnboundLocalError:
             error = 'Todos os campos devem ser preenchidos!' 
+            return render_template('film/create.html', error=error)
+        except exc.IntegrityError:
+            error = 'Título já cadastrado!' 
             return render_template('film/create.html', error=error)
         
     else:
@@ -112,15 +117,15 @@ def upload(file, folder):
 
 @film_bp.route('/info/<id>', methods=['GET', 'POST'])
 def info(id):
-        ls = film.search(id)
-        return render_template('film/info.html', ls=ls)
+    ls = film.search(id)
+    return render_template('film/info.html', ls=ls)
 
 def generate(n):
-        caracters = '0123456789abcdefghijlmnopqrstuwvxz'
-        string = ''
-        for char in range(n):
-                string += choice(caracters)
-        return string
+    caracters = '0123456789abcdefghijlmnopqrstuwvxz'
+    string = ''
+    for char in range(n):
+            string += choice(caracters)
+    return string
 
 def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS

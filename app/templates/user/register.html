@@ -2,9 +2,12 @@
 {% block body %}
 
 <div class="container">
-    <form id="cadastro"  style="position:relative;top:5em;" class="form-signin"
-     action="/usuario/"
-    method="POST">
+    <form id="cadastro"  style="position:relative;top:5em;" class="form-signin" action="/usuario/" method="POST">
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
         <h1 id="login">Cadastro</h1>
         <br />
         <div class="form-label-group">
