@@ -69,8 +69,7 @@ def select():
 
         for film_id in checkbox:
             f = film.search(film_id)
-            f.active = True
-            
+            f.active = True    
             film.update(f)
             
         return redirect('/')
