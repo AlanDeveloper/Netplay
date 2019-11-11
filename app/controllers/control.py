@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from flask import Blueprint, Flask, render_template, request, redirect, session, jsonify
 from app.models.film_user import film_user
 from app.models.film import film
@@ -15,7 +14,6 @@ def index():
 @control.route('/home', methods=['GET', 'POST'])
 def home():
     list_films_active = film.ls()
-
     if session['admin']:
         return render_template('printer/home.html', active=list_films_active)
     else:
@@ -57,7 +55,6 @@ def time_watch():
 @control.route('/selecionar', methods=['GET', 'POST'])
 def select():
     ls = film.ls()
-
     if request.method == 'POST':
         checkbox = request.form.getlist('select')
 
@@ -75,7 +72,5 @@ def select():
             f.active = True
             
             film.update(f)
-        
+            
         return redirect('/')
-    else:
-        return render_template('printer/select.html', ls=ls)
