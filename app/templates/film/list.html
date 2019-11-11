@@ -10,9 +10,9 @@
             <img  src="{{url_for('static', filename='images/'+item.image)}}" width="400px" height="400px" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">{{ item.title }}</h5>
-              <a href="info/{{item.id}}" style="position:relative;width:100%;" class="btn btn-outline-info">Assistir</a>
-              <br/>
-              <br/>
+              <a  href="info/{{item.id}}" >
+                <i  style="position: relative;left: 45%;color: rgba(255, 255, 255, 0.83);top:-5em;font-size:55px;" class="fa fa-play-circle-o"                                 aria-hidden="true"></i>
+              </a>
               {% if session['admin'] %}
                 <a  href="atualizar/{{ item.id }}" class="btn btn-info">Atualizar</a>
                 <a href="del/{{ item.id }}" class="btn btn-danger">Deletar</a>
