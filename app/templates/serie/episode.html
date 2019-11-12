@@ -1,0 +1,40 @@
+{% extends 'layout/base.html' %}
+{% block body %}
+<br>
+<br>
+<div class="container">
+    <h1 style="text-align:center;">Adicionar Episódios</h1>
+    <br />
+    <form action="/serie/episodio" style="position:relative;height:50em;" class="form-control" enctype="multipart/form-data" method="post">
+        {% if error %}
+            <p class=error>{{ error }}</p>
+        {% endif %}
+        <div class="form-group">
+            <label>Título</label>
+            <input type="text" class="form-control" name="title" placeholder="Digite o título">
+        </div>
+        <div class="form-group">
+            <label>Série</label>
+            <select name="serieId" class="form-control">
+                <option value="none">Selecione uma série</option>
+                {% for item in ls %}
+                    <option value="{{ item.id }}"> {{ item.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group" id="season">
+            <label>Temporada</label>
+            {% for item in ls %}
+                <p id="season-value">{{ item.season }}</p>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label>Selecione o arquivo do video(mp4)</label><br>
+            <input type="file" name="video">
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="Adicionar">
+    </form>
+</div>
+<script src="{{url_for('static', filename='js/season.js')}}"></script>
+{% endblock %}

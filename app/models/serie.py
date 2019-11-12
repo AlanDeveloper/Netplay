@@ -1,45 +1,44 @@
 from .. import db
 from sqlalchemy import Column, Integer, String, Boolean
 
-class film(db.Model):
-    __tablename__ = 'film'
+class serie(db.Model):
+    __tablename__ = 'serie'
     id = Column(Integer, primary_key=True)
     title = Column(String(100), unique=True, nullable=False)
     synopsis = Column(String(1000), nullable=False)
     ageRange = Column(String(5), nullable=False)
     genero = Column(String(1000), nullable=False)
     image = Column(String(1000), nullable=False)
-    video = Column(String(1000), nullable=False)
+    season = Column(Integer, nullable=False)
     active = Column(Boolean, default=False, nullable=False)
 
-    def __init__(self, title, synopsis, ageRange, genero, newname=None, newname2=None):
+    def __init__(self, title, synopsis, ageRange, genero, season, newname=None):
         self.title = title
         self.synopsis = synopsis
         self.ageRange = ageRange
         self.genero = genero
+        self.season = season
 
         if newname:
             self.image = newname
-        if newname2:
-            self.video = newname2
 
-    def add(film):
-        db.session.add(film)
+    def add(serie):
+        db.session.add(serie)
         db.session.commit()
 
     def ls():
-        return film.query.all()
+        return serie.query.all()
 
     def delete(id):
-        film.query.filter_by(id=id).delete()
+        serie.query.filter_by(id=id).delete()
         db.session.commit()
 
-    def update(film):
-        db.session.merge(film)
+    def update(serie):
+        db.session.merge(serie)
         db.session.commit()
 
     def search(id):
-        return film.query.filter_by(id=id).first()
+        return serie.query.filter_by(id=id).first()
 
     def searchName(name):
-        return film.query.filter(film.title.ilike('%'+name+'%')).all()
+        return serie.query.filter(serie.title.ilike('%'+name+'%')).all()

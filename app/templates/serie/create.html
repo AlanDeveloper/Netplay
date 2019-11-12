@@ -1,17 +1,17 @@
 {% extends 'layout/base.html' %}
 {% block body %}
-<br/>
-<br/>
+<br />
+<br />
 
 <div class="container">
-    <h1 style="text-align:center;">Adicionar Filmes</h1>
-    <br/>
+    <h1 style="text-align:center;">Adicionar Séries</h1>
+    <br />
     <form action="#" style="position:relative;height:50em;" class="form-control" enctype="multipart/form-data" method="post">
         {% if error %}
-        <p class=error>{{ error }}</p>
+            <p class=error>{{ error }}</p>
         {% endif %}
         <div class="form-group">
-            <label>Título</label> 
+            <label>Título</label>
             <input type="text" class="form-control" name="title" placeholder="Digite o título">
         </div>
         <div class="form-group" id="generos">
@@ -45,12 +45,12 @@
             </select>
         </div>
         <div class="form-group">
-            <label>Selecione o arquivo da imagem(png, jpg, jpeg)</label><br>
-            <input type="file" name="file">
+            <label>Temporadas</label><br>
+            <input type="number" class="form-control" name="season" placeholder="Número de temporadas">
         </div>
         <div class="form-group">
-            <label>Selecione o arquivo do video(mp4)</label><br>
-            <input type="file" name="video">
+            <label>Selecione o arquivo da imagem(png, jpg, jpeg)</label><br>
+            <input type="file" name="file">
         </div>
 
         <input type="submit" class="btn btn-primary" value="Adicionar">

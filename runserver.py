@@ -6,6 +6,7 @@ from flask import Blueprint, request, redirect, Flask, session
 from app.controllers.control import control
 from app.controllers.user import user
 from app.controllers.film import film_bp
+from app.controllers.serie import serie_bp
 from app.controllers.user import user_bp
 
 # from app.models.user import user
@@ -15,6 +16,7 @@ from app import db
 
 app.register_blueprint(control)
 app.register_blueprint(film_bp)
+app.register_blueprint(serie_bp)
 app.register_blueprint(user_bp)
 
 @app.before_first_request

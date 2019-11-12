@@ -27,10 +27,16 @@ def index():
         video = request.files['video']
         
         try:
+            generos = request.form.getlist('genero')
+
+            v = ''
+            for gen in generos:
+                v += gen + ';'
+
             if title != '' and synopsis != '' and ageRange != '':
                 newname = upload(file, 'images')
                 newname2 = upload(video, 'videos')
-            resp = film(title, synopsis, ageRange, newname, newname2)
+            resp = film(title, synopsis, ageRange, v, newname, newname2)
             film.add(resp)
 
             return redirect('/filme/lista')
