@@ -66,9 +66,17 @@ def list_season(serie_id):
 
 @serie_bp.route('/lista/<serie_id>/<season_id>', methods=['GET', 'POST'])
 def list_episode(serie_id, season_id):
-    # ls = serie.search(id)
-    # return render_template('serie/list_season.html', ls=ls)
-    return serie_id + season_id
+    ls = episode.search(serie_id, season_id)
+    v= []
+
+    for item in ls:
+        v.append({
+            'id': item.id,
+            'title': item.title,
+            'video': item.video
+        })
+    
+    return jsonify(v)
 
 @serie_bp.route('/episodio', methods=['GET', 'POST'])
 def register_episode():

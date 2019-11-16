@@ -30,8 +30,11 @@ class episode(db.Model):
         db.session.merge(episode)
         db.session.commit()
 
-    def search(id):
-        return episode.query.filter_by(id=id).first()
+    def search(serie_id, season_id):
+        return episode.query.filter_by(
+            serieId = serie_id,
+            seasonNumber = season_id
+        ).all()
 
     def searchName(name):
         return episode.query.filter(episode.title.ilike('%'+name+'%')).all()
