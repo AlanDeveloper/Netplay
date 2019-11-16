@@ -7,7 +7,7 @@
     <div class="row" >            
     {% for item in ls %}     
        <div class="card" style="position:relative;margin:1%;width: 18rem;">
-            <img  src="{{url_for('static', filename='images/'+item.image)}}" width="400px" height="400px" class="card-img-top" alt="...">
+            <img  src="{{url_for('static', filename='film/images/'+item.image)}}" width="400px" height="400px" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">{{ item.title }}</h5>
               <a  href="info/{{item.id}}" >

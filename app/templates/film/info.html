@@ -2,7 +2,7 @@
 {% block body %}
 <div style="width:90%;" class="row">
   <div class="col">
-  <img src="{{url_for('static', filename='images/'+ls.image)}}" width="500px" height="500px" alt="">
+  <img src="{{url_for('static', filename='film/images/'+ls.image)}}" width="500px" height="500px" alt="">
   </div>
   <div style="position:relative;top:1em;" class="col">
     <button class="btn btn-light" style="color:white;box-shadow: 1px 1px gray;background-color:{% if (ls.ageRange == 'L'): %} {% print('green') %} {% endif %}
@@ -35,7 +35,7 @@
               </div>
               <div class="modal-body">
                   <video id="video" width="800" height="450" style="outline: none;" controls controlsList="nodownload">
-                      <source src="{{url_for('static', filename='videos/'+ls.video)}}" type="video/mp4">
+                      <source src="{{url_for('static', filename='film/videos/'+ls.video)}}" type="video/mp4">
                   </video>
               </div>
               <div class="modal-footer">
@@ -46,6 +46,7 @@
         </div>
     </div>
     <script src="{{url_for('static', filename='plugins/jquery.js')}}"></script>
-    <script src="{{url_for('static', filename='js/video.js')}}"></script>
+    <script src="{{url_for('static', filename='js/save_minute.js')}}"></script>
+    <script src="{{url_for('static', filename='js/get_duration.js')}}"></script>
   
 {% endblock %}

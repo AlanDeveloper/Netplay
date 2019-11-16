@@ -10,5 +10,6 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'secret')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123@localhost/netplay'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+path = os.path.dirname(os.path.abspath(__file__)) + '\static\\{}\\{}\\'
 db = SQLAlchemy(app)
 Bootstrap(app)

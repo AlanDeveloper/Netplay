@@ -1,0 +1,15 @@
+{% extends 'layout/base.html' %}
+{% block body %}
+<style>
+    button {
+        float: right;
+    }
+</style>
+<div class="container">
+    <br/><h1>Séries</h1><br/>
+    
+    <p id="number">{{ ls.season }}</p>
+</div>
+<script src="{{url_for('static', filename='plugins/jquery.js')}}"></script>
+<script src="{{url_for('static', filename='js/get_episodes.js')}}"></script>
+{% endblock %}

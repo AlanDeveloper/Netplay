@@ -7,11 +7,11 @@
     <div class="row">
         {% for item in ls %}
         <div class="card" style="position:relative;margin:1%;width: 18rem;">
-            <img src="{{url_for('static', filename='images/'+item.image)}}" width="400px" height="400px"
+            <img src="{{url_for('static', filename='serie/images/'+item.image)}}" width="400px" height="400px"
                 class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">{{ item.title }}</h5>
-                <a href="info/{{item.id}}">
+                <a href="lista/{{item.id}}">
                     <i style="position: relative;left: 45%;color: rgba(255, 255, 255, 0.83);top:-5em;font-size:55px;"
                         class="fa fa-play-circle-o" aria-hidden="true"></i>
                 </a>

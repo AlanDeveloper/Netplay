@@ -9,10 +9,7 @@ from app.models import __init__
 
 from sqlalchemy import exc
 
-path = os.path.dirname(os.path.abspath(__file__)).replace(
-    'controllers', 'static\\{}\\')
-
-from app import db
+from app import path
 
 film_bp = Blueprint('film', __name__, url_prefix='/filme')
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'mp4'])
@@ -58,8 +55,8 @@ def list():
 @film_bp.route('/del/<id>', methods=['GET', 'POST'])
 def delete(id):
     file = film.search(id)
-    os.remove(path.format('images') + file.image)
-    os.remove(path.format('videos') + file.video)
+    os.remove(path.format('film', 'images') + file.image)
+    os.remove(path.format('film', 'videos') + file.video)
     film.delete(id)
     return redirect('/filme/lista')
 
@@ -78,18 +75,18 @@ def update(id):
             newname = upload(file, 'images')
             newname2 = upload(video, 'videos')
             
-            os.remove(path.format('images') + resp.image)
-            os.remove(path.format('videos') + resp.video)
+            os.remove(path.format('film', 'images') + resp.image)
+            os.remove(path.format('film', 'videos') + resp.video)
             resp = film(title, synopsis, ageRange, newname, newname2)
         elif file:
             newname = upload(file, 'images')
 
-            os.remove(path.format('images') + resp.image)
+            os.remove(path.format('film', 'images') + resp.image)
             resp = film(title, synopsis, ageRange, newname)
         elif video: 
             newname2 = upload(video, 'videos')
             
-            os.remove(path.format('videos') + resp.video)
+            os.remove(path.format('film', 'videos') + resp.video)
             resp = film(title, synopsis, ageRange, None, newname2)
         else:
             resp = film(title, synopsis, ageRange)
@@ -113,11 +110,11 @@ def upload(file, folder):
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        file.save(os.path.join(path.format(folder), filename))
+        file.save(os.path.join(path.format('film', folder), filename))
         newname = dt.replace(' ', '-').replace(':', '-') + '_' + generate(15) + '.' + filename.split('.')[1]
         os.rename(
-            path.format(folder) + filename,
-            path.format(folder) + newname
+            path.format('film', folder) + filename,
+            path.format('film', folder) + newname
         )
     return newname
 
@@ -130,7 +127,7 @@ def generate(n):
     caracters = '0123456789abcdefghijlmnopqrstuwvxz'
     string = ''
     for char in range(n):
-            string += choice(caracters)
+        string += choice(caracters)
     return string
 
 def allowed_file(filename):

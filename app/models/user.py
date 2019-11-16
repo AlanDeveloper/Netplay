@@ -21,9 +21,6 @@ class user(db.Model):
         db.session.add(u)
         db.session.commit()
 
-    def ls():
-        return user.query.all()
-
     def delete(id):
         user.query.filter_by(id=id).delete()
         db.session.commit()
@@ -35,5 +32,8 @@ class user(db.Model):
     def search(email, password):
         password = hashlib.md5(password.encode())
         u = user.query.filter_by(
-            email=email, password=password.hexdigest()).first()
+            email=email, 
+            password=password.hexdigest()
+        ).first()
+        
         return u

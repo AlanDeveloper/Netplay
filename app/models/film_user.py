@@ -1,11 +1,12 @@
 from .. import db
-from sqlalchemy import Column, Integer, ForeignKey, String
+from sqlalchemy import Column, Integer, ForeignKey, String, Boolean
 
 class film_user(db.Model):
     __tablename__ = 'film_user'
     film_id = Column(Integer, ForeignKey('film.id', ondelete='CASCADE'), primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id', ondelete='CASCADE'), primary_key=True)
     time = Column(String(1000))
+    watched = Column(Boolean, default=False, nullable=False)
     
     users = db.relationship('user', backref='film_user')
     films = db.relationship('film', backref='film_user')
