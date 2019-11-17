@@ -10,7 +10,9 @@ const card_seasons = function (i) {
     button.innerText = 'Ver episódios';
     button.value = i + 1;
     button.addEventListener('click', get_episodes);
-
+    button.style.color = "white";
+    button.style.background = "#1c728d";
+    
     div = document.createElement('div');
     div.setAttribute('class', 'alert alert-dark div_' + i);
     div.setAttribute('role', 'alert');
@@ -39,7 +41,8 @@ const get_episodes = function (event) {
 
                 button = document.createElement('button');
                 button.innerText = 'Assistir';
-
+                button.style.color = 'blue'
+                button.style.border = '2px double #1c728d'                
                 div.appendChild(button);
                 div_season.appendChild(div);
             }
