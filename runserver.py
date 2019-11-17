@@ -37,12 +37,11 @@ def before_request_func():
 
     if session:
         if request.path == '/usuario/' or request.path == '/' or request.path == '/usuario/entrar':
-                
             return redirect('/home')
 
-    if request.path == '/filme/':
+    if (request.path == '/filme/') or (request.path.find("/filme/atualizar") !=-1) or (request.path.find("/filme/selecionar") !=-1) :
         if session['admin'] == False:
-            return "Acesso bloqueado!"
+            return render_template("printer/error.html")
 
             
 @app.route('/')
