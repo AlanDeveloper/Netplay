@@ -1,0 +1,38 @@
+{% extends "layout/base.html" %}
+
+{% block body %}
+<form action="/selecionar" method="post">
+<div class="card mb-3">
+    <div class="card-header">
+      <i class="fa fa-table"></i>
+      Selecione os filmes para a página inicial
+    </div>    
+    <div class="card-body"> 
+        <input style="position: relative;top:-0.5em;" type="submit" class="btn btn-info" value="Atualizar">                          
+        <input class="form-control" id="myInput" type="text" placeholder="Pesquisar..">  
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+            <thead>
+                <tr>
+                <th>Nome</th>
+                <th>selecionar</th>              
+                </tr>
+            </thead>
+            <tbody id="tabela">
+                    {% for item in ls %}
+                        <tr>
+                            <td>{{ item.title }}</td>
+                            <td><input type="checkbox" value="{{ item.id }}" name="select" {% if item.active: %} {% print('checked') %} {% endif %}></td>
+                        </tr>
+                    {% endfor %}
+            </tbody>
+            </table>
+            
+        </div>
+    </div>
+</div>
+</form>
+
+</div>
+{% endblock %}
