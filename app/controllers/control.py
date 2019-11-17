@@ -3,6 +3,8 @@ from app.models.film_user import film_user
 from app.models.film import film
 from app.models import __init__
 
+from app import db
+
 control = Blueprint('control', __name__, url_prefix='/')
 
 @control.route('/')
@@ -80,3 +82,6 @@ def select():
             film.update(f)
             
         return redirect('/')
+    else:
+
+        return render_template('printer/select.html', ls=ls)
