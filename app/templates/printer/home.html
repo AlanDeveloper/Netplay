@@ -9,8 +9,8 @@
             Editar
         </button> 
         <div class="dropdown-menu" id="d" aria-labelledby="navbarDropdown">  
-            <a class="dropdown-item"  href="/selecionar"> Filmes</a>
-            <a class="dropdown-item"  href="#"> Séries</a>
+            <a class="dropdown-item"  href="/selecionar_filmes"> Filmes</a>
+            <a class="dropdown-item"  href="/selecionar_series"> Séries</a>
         </div>
     </div>
     <section style="position:relative;width:100%;height:25em;" class="service-section bg-gray section">
@@ -20,7 +20,7 @@
         </div>
         <br/>
         <div style="position:relative;width:80%;left:9.5%;" class="row items-container clearfix">
-            {% for item in active %}
+            {% for item in ls_film %}
                 {% if item.active %}
                     <div style="position:relative;width:80%;" class="item" >
                         <div class="inner-box" >
@@ -36,75 +36,35 @@
             {% endfor %}
         </div>
     </section>
-    
-    <section id="series" style="position:relative;top:10em;width:100%;height:25em;" class="service-section bg-gray section">
+    <br><br><br><br>
+
+    <section style="position:relative;width:100%;height:25em;" class="service-section bg-gray section">
+        <br /><br /><br />
         <div style="position:relative;color:#377BA8;width:100%;" class="section-title text-center">
-            <h1>Séries</h1>
+            <h1> Lançamentos <span>Séries 2019</span></h1>
         </div>
-        <br/>
+        <br />
         <div style="position:relative;width:80%;left:9.5%;" class="row items-container clearfix">
-            <div class="item">
-                <div class="inner-box">
-                    <div class="image-holder">
-                        <img style="width:280px;height:400px"src="{{url_for('static', filename='images/sobrenatural.jpg')}}" class="img-responsive" alt="video-gallery">
-                        <a href="#">
-                            <i id="icon" style="position: relative;left: 45%;color: rgba(255, 255, 255, 0.83);top:-4em;font-size:55px;" class="fa fa-play-circle-o"         aria-hidden="true"></i>
-                        </a>
+            {% for item in ls_serie %}
+                {% if item.active %}
+                    <div style="position:relative;width:80%;" class="item">
+                        <div class="inner-box">
+                            <div class="image-holder">
+                                <img src="{{url_for('static', filename='serie/images/'+item.image)}}"
+                                    style="width:280px;height:400px" class="img-responsive" alt="...">
+                                <a href="/serie/lista/{{ item.id }}">
+                                    <i id="icon"
+                                        style="position: relative;left: 45%;color: rgba(255, 255, 255, 0.83);top:-4em;font-size:55px;"
+                                        class="fa fa-play-circle-o" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div style="position:relative;width:80%;" class="item">
-                <div class="inner-box">
-                    <div class="image-holder">
-                        <img style="width:280px;height:400px" src="{{url_for('static', filename='images/stranger.jpg')}}" class="img-responsive" alt="video-gallery">
-                        <a href="#">
-                            <i id="icon" style="position: relative;left: 45%;color: rgba(255, 255, 255, 0.83);top:-4em;font-size:55px;" class="fa fa-play-circle-o"         aria-hidden="true"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div style="position:relative;width:80%;" class="item">
-                <div class="inner-box">
-                    <div class="image-holder">
-                        <img style="width:280px;height:400px" src="{{url_for('static', filename='images/breakingbad.jpg')}}" class="img-responsive" alt="video-gallery">
-                        <a href="#">
-                            <i id="icon" style="position: relative;left: 45%;color: rgba(255, 255, 255, 0.83);top:-4em;font-size:55px;" class="fa fa-play-circle-o"         aria-hidden="true"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div style="position:relative;width:80%;" class="item">
-                <div class="inner-box">
-                    <div class="image-holder">
-                        <img style="width:280px;height:400px" src="{{url_for('static', filename='images/anatomy.jpg')}}" class="img-responsive" alt="video-gallery">
-                        <a href="#">
-                            <i id="icon" style="position: relative;left: 45%;color: rgba(255, 255, 255, 0.83);top:-4em;font-size:55px;" class="fa fa-play-circle-o"         aria-hidden="true"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div style="position:relative;width:80%;" class="item">
-                <div class="inner-box">
-                    <div class="image-holder">
-                        <img style="width:280px;height:400px" src="{{url_for('static', filename='images/twd.jpg')}}" class="img-responsive" alt="video-gallery">
-                        <a href="#">
-                            <i id="icon" style="position: relative;left: 45%;color: rgba(255, 255, 255, 0.83);top:-4em;font-size:55px;" class="fa fa-play-circle-o"         aria-hidden="true"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div style="position:relative;width:80%;" class="item">
-                <div class="inner-box">
-                    <div class="image-holder">
-                        <img style="width:280px;height:400px" src="{{url_for('static', filename='images/odeiaochris.jpg')}}" class="img-responsive" alt="video-gallery">
-                        <a href="#">
-                            <i id="icon" style="position: relative;left: 45%;color: rgba(255, 255, 255, 0.83);top:-4em;font-size:55px;" class="fa fa-play-circle-o"         aria-hidden="true"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>         
+                {% endif %}
+            {% endfor %}
+        </div>
     </section>
+    
     {% if not session['admin'] %}
     <section style="position:relative;top:13em;width:100%;height:30em;" class="service-section bg-gray section">
         <br/><br/><br/>

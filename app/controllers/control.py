@@ -1,5 +1,6 @@
 from flask import Blueprint, Flask, render_template, request, redirect, session, jsonify
 from app.models.film_user import film_user
+from app.models.serie import serie
 from app.models.film import film
 from app.models import __init__
 
@@ -14,8 +15,10 @@ def index():
 @control.route('/home', methods=['GET', 'POST'])
 def home():
     list_films_active = film.ls()
+    list_serie_active = serie.ls()
+
     if session['admin']:
-        return render_template('printer/home.html', active=list_films_active)
+        return render_template('printer/home.html', ls_film=list_films_active, ls_serie=list_serie_active)
     else:
         items = []
         ls = film_user.searchFilms(session['id'])
@@ -24,7 +27,7 @@ def home():
             if film_user.search(item.film_id, session['id']).watched != True:
                 f = film.search(item.film_id)
                 items.append(f)
-        return render_template('printer/home.html', ls=items, active=list_films_active)
+        return render_template('printer/home.html', ls=items, ls_film=list_films_active, ls_serie=list_serie_active)
 
 @control.route('/assistidos', methods=['POST'])
 def watching():
@@ -61,8 +64,8 @@ def time_watch():
     else:
         return jsonify({'time': 0})
 
-@control.route('/selecionar', methods=['GET', 'POST'])
-def select():
+@control.route('/selecionar_filmes', methods=['GET', 'POST'])
+def select_film():
     ls = film.ls()
     if request.method == 'POST':
         checkbox = request.form.getlist('select')
@@ -84,4 +87,29 @@ def select():
         return redirect('/')
     else:
 
-        return render_template('printer/select.html', ls=ls)
+        return render_template('printer/select_film.html', ls=ls)
+
+@control.route('/selecionar_series', methods=['GET', 'POST'])
+def select_serie():
+    ls = serie.ls()
+    if request.method == 'POST':
+        checkbox = request.form.getlist('select')
+
+        for serie_list in ls:
+            for box_serie in checkbox:
+                if serie_list.id == box_serie:
+                    serie_list.id = None
+
+            if serie_list.id != None:
+                serie_list.active = False
+                serie.update(serie_list)
+
+        for serie_id in checkbox:
+            f = serie.search(serie_id)
+            f.active = True
+            serie.update(f)
+
+        return redirect('/')
+    else:
+
+        return render_template('printer/select_serie.html', ls=ls)

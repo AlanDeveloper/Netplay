@@ -35,6 +35,13 @@ class episode(db.Model):
             serieId = serie_id,
             seasonNumber = season_id
         ).all()
+    
+    def search_episode(serie_id, season_id, episode_id):
+        return episode.query.filter_by(
+            serieId=serie_id,
+            seasonNumber=season_id,
+            id=episode_id
+        ).first()
 
     def searchName(name):
         return episode.query.filter(episode.title.ilike('%'+name+'%')).all()

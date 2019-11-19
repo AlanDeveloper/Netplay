@@ -6,7 +6,26 @@
     }
 </style>
 <div class="container">
-    <br/><h1>Séries</h1><br/>
+    <div style="position:relative;top:1em;" class="col">
+        <img src="{{url_for('static', filename='serie/images/'+ls.image)}}" width="400px" height="400px" class="card-img-top"
+            alt="...">
+        <br><br>
+        <button class="btn btn-light" style="color:white;box-shadow: 1px 1px gray;background-color:{% if (ls.ageRange == 'L'): %} {% print('green') %} {% endif %}
+        {% if (ls.ageRange == '10'): %} {% print('blue') %} {% endif %}
+        {% if (ls.ageRange == '12'): %} {% print('yellow') %} {% endif %}
+        {% if (ls.ageRange == '14'): %} {% print('orange') %} {% endif %}
+        {% if (ls.ageRange == '16'): %} {% print('red') %} {% endif %}
+        {% if (ls.ageRange == '18'): %} {% print('black') %} {% endif %}" disabled="disabled">{{ ls.ageRange }}</button>
+    
+        <h1 style="text-align: center;">{{ ls.title }}</h1>
+        <br />
+        <p style="font-size:22.2px;">Gênero(s): {{ ls.genero.replace(";",",")[:-1]}}</p>
+        <p style="font-size:22.2px;" id="duration"></p>
+        <h3 style="color:#377BA8;font-family:'Georgia', serif;text-align: center;">Sinopse</h3>
+        <p style="font-size:22.2px;">{{ls.synopsis}}</p>
+        <br><br>
+    </div>
+    </div>
     
     <p id="number">{{ ls.season }}</p>
 </div>

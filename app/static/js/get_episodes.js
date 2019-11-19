@@ -37,12 +37,15 @@ const get_episodes = function (event) {
                 div = document.createElement('div');
                 div.setAttribute('class', 'mt-3 alert alert-light');
                 div.setAttribute('role', 'alert');
-                div.innerText = 'Episódio ' + res[i].id + ': ' + (res[i].title);
+                div.innerText = 'Episódio ' + (i + 1) + ': ' + (res[i].title);
 
-                button = document.createElement('button');
-                button.innerText = 'Assistir';
-                button.style.color = 'blue'
-                button.style.border = '2px double #1c728d'                
+                button = document.createElement('button');             
+                
+                a = document.createElement('a');
+                a.innerText = 'Assistir';
+                a.setAttribute('href', '/serie/' + url[url.length - 1] + '/' + event.target.value + '/' + res[i].id);
+
+                button.appendChild(a);
                 div.appendChild(button);
                 div_season.appendChild(div);
             }
