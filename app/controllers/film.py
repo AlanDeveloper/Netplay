@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from random import choice
 import os
 from time import gmtime, strftime
@@ -31,8 +30,7 @@ def index():
             if title != '' and synopsis != '' and ageRange != '' and generos != ';':
                 newname = upload(file, 'images')
                 newname2 = upload(video, 'videos')
-                resp = film(title, synopsis, ageRange,
-                            generos, newname, newname2)
+                resp = film(title, synopsis, ageRange, generos, newname, newname2)
                 film.add(resp)
                 return redirect('/filme/lista')
             else:
