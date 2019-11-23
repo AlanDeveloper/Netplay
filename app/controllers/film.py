@@ -14,6 +14,7 @@ from app import path
 film_bp = Blueprint('film', __name__, url_prefix='/filme')
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'mp4'])
 
+
 @film_bp.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -22,28 +23,28 @@ def index():
         ageRange = request.form['ageRange']
         file = request.files['file']
         video = request.files['video']
-        
+        checkbox = request.form.getlist('checkbox')
+        generos = ';'.join(checkbox)+';'
+
         try:
-            generos = request.form.getlist('genero')
 
-            v = ''
-            for gen in generos:
-                v += gen + ';'
-
-            if title != '' and synopsis != '' and ageRange != '':
+            if title != '' and synopsis != '' and ageRange != '' and generos != ';':
                 newname = upload(file, 'images')
                 newname2 = upload(video, 'videos')
-            resp = film(title, synopsis, ageRange, v, newname, newname2)
-            film.add(resp)
-
-            return redirect('/filme/lista')
+                resp = film(title, synopsis, ageRange,
+                            generos, newname, newname2)
+                film.add(resp)
+                return redirect('/filme/lista')
+            else:
+                error = 'Todos os campos devem ser preenchidos!'
+                return render_template('film/create.html', error=error)
         except UnboundLocalError:
-            error = 'Todos os campos devem ser preenchidos!' 
+            error = 'Todos os campos devem ser preenchidos!'
             return render_template('film/create.html', error=error)
         except exc.IntegrityError:
-            error = 'Título já cadastrado!' 
+            error = 'Título já cadastrado!'
             return render_template('film/create.html', error=error)
-        
+
     else:
         return render_template('film/create.html')
 
@@ -60,36 +61,38 @@ def delete(id):
     film.delete(id)
     return redirect('/filme/lista')
 
+
 @film_bp.route('/atualizar/<id>', methods=['GET', 'POST'])
 def update(id):
     if request.method == 'POST':
         title = request.form['title']
         synopsis = request.form['synopsis']
-        ageRange = request.form['ageRange'] 
+        ageRange = request.form['ageRange']
         file = request.files['file']
         video = request.files['video']
-
+        checkbox = request.form.getlist('select')
+        genero = ';'.join(checkbox)+';'
         resp = film.search(id)
 
         if video and file:
             newname = upload(file, 'images')
             newname2 = upload(video, 'videos')
-            
+
             os.remove(path.format('film', 'images') + resp.image)
             os.remove(path.format('film', 'videos') + resp.video)
-            resp = film(title, synopsis, ageRange, newname, newname2)
+            resp = film(title, synopsis, ageRange, genero, newname, newname2)
         elif file:
             newname = upload(file, 'images')
 
             os.remove(path.format('film', 'images') + resp.image)
-            resp = film(title, synopsis, ageRange, newname)
-        elif video: 
+            resp = film(title, synopsis, ageRange, genero, newname)
+        elif video:
             newname2 = upload(video, 'videos')
-            
+
             os.remove(path.format('film', 'videos') + resp.video)
-            resp = film(title, synopsis, ageRange, None, newname2)
+            resp = film(title, synopsis, ageRange, genero, None, newname2)
         else:
-            resp = film(title, synopsis, ageRange)
+            resp = film(title, synopsis, ageRange, genero)
         resp.id = id
 
         film.update(resp)

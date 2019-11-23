@@ -1,0 +1,72 @@
+{% extends 'layout/base.html' %}
+{% block body %}
+<br />
+<br />
+
+<div class="container">
+    <h1 style="text-align:center;">Adicionar Séries</h1>
+    <br />
+    <form action="#" style="position:relative;height:50em;" class="form-control" enctype="multipart/form-data" method="post">
+        {% if error %}
+            <p class=error>{{ error }}</p>
+        {% endif %}
+        <div class="form-group">
+            <label>Título</label>
+            <input type="text" class="form-control" name="title"  value="{{ ls.title }}" placeholder="Digite o título">
+        </div>
+        <div class="form-group">
+            <label for="">Ação</label>
+            <input type="checkbox" value="Ação" {% for ls in ls.genero.split(';')[:-1]: %} {% if(ls == 'Ação'): %}
+                {% print('checked') %} {% endif %} {% endfor %} name="select"> <br />
+        
+            <label for="">Aventura</label>
+            <input type="checkbox" value="Aventura" {% for ls in ls.genero.split(';')[:-1]: %} {% if(ls == 'Aventura'): %}
+                {% print('checked') %} {% endif %} {% endfor %} name="select"> <br />
+            <label for="">Comédia</label>
+            <input type="checkbox" value="Comédia" {% for ls in ls.genero.split(';')[:-1]: %} {% if(ls == 'Comédia'): %}
+                {% print('checked') %} {% endif %} {% endfor %} name="select"> <br />
+            <label for="">Documentário</label>
+            <input type="checkbox" value="Documentário" {% for ls in ls.genero.split(';')[:-1]: %}
+                {% if(ls == 'Documentário'): %} {% print('checked') %} {% endif %} {% endfor %} name="select"> <br />
+            <label for="">Ficção científica</label>
+            <input type="checkbox" value="Ficção científica" {% for ls in ls.genero.split(';')[:-1]: %}
+                {% if(ls == 'Ficção científica'): %} {% print('checked') %} {% endif %} {% endfor %} name="select">
+            <br />
+            <label for="">Romance</label>
+            <input type="checkbox" value="Romance" {% for ls in ls.genero.split(';')[:-1]: %} {% if(ls == 'Romance'): %}
+                {% print('checked') %} {% endif %} {% endfor %} name="select"> <br />
+            <label for="">Suspense</label>
+            <input type="checkbox" value="Suspense" {% for ls in ls.genero.split(';')[:-1]: %} {% if(ls == 'Suspense'): %}
+                {% print('checked') %} {% endif %} {% endfor %} name="select"> <br />
+            <label for="">Terror</label>
+            <input type="checkbox" value="Terror" {% for ls in ls.genero.split(';')[:-1]: %} {% if(ls == 'Terror'): %}
+                {% print('checked') %} {% endif %} {% endfor %} name="select">
+        </div>
+        <div class="form-group">
+            <label>Sinopse</label>
+            <textarea name="synopsis" class="form-control" cols="30" rows="10" placeholder="Digite a sinopse">{{ ls.synopsis }}</textarea>
+        </div>
+        <div class="form-group">
+            <label>Faixa etária</label>
+            <select name="ageRange" class="form-control" name="ageRange">
+                <option value="L" {% if (ls.ageRange == "L"): %} {% print('selected') %} {% endif %}>L</option>
+                <option value="10" {% if (ls.ageRange == "10"): %} {% print('selected') %} {% endif %}>10</option>
+                <option value="12" {% if (ls.ageRange == "12"): %} {% print('selected') %} {% endif %}>12</option>
+                <option value="14" {% if (ls.ageRange == "14"): %} {% print('selected') %} {% endif %}>14</option>
+                <option value="16" {% if (ls.ageRange == "16"): %} {% print('selected') %} {% endif %}>16</option>
+                <option value="18" {% if (ls.ageRange == "18"): %} {% print('selected') %} {% endif %}>18</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Temporadas</label><br>
+            <input type="number" class="form-control" name="season" value="{{ ls.season }}" placeholder="Número de temporadas">
+        </div>
+        <div class="form-group">
+            <label>Selecione o arquivo da imagem(png, jpg, jpeg)</label><br>
+            <input type="file" name="file">
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="Adicionar">
+    </form>
+</div>
+{% endblock %}

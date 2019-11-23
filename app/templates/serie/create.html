@@ -16,18 +16,22 @@
         </div>
         <div class="form-group" id="generos">
             <label>Gêneros</label><br>
-            <select name="genero" class="form-control col-md-2 mb-2">
-                <option value="action">Ação</option>
-                <option value="aventure">Aventura</option>
-                <option value="comedy">Comédia</option>
-                <option value="documentary">Documentário</option>
-                <option value="drama">Drama</option>
-                <option value="fiction">Ficção científica</option>
-                <option value="romance">Romance</option>
-                <option value="thriller">Suspense</option>
-                <option value="horror">Terror</option>
-            </select>
-            <button id="add" class="btn btn-primary">+</button>
+            <label for="">Ação</label>
+            <input value="Ação" name="checkbox" type="checkbox"><br />
+            <label for="">Aventura</label>
+            <input value="Aventura" name="checkbox" type="checkbox"><br />
+            <label for="">Comédia</label>
+            <input value="Comédia" name="checkbox" type="checkbox"><br />
+            <label for="">Documentário</label>
+            <input value="Documentário" name="checkbox" type="checkbox"><br />
+            <label for="">Ficção científica</label>
+            <input value="Ficção científica" name="checkbox" type="checkbox"><br />
+            <label for="">Romance</label>
+            <input value="Romance" name="checkbox" type="checkbox"><br />
+            <label for="">Suspense</label>
+            <input value="Suspense" name="checkbox" type="checkbox"><br />
+            <label for="">Terror</label>
+            <input value="Terror" name="checkbox" type="checkbox"><br />
         </div>
         <div class="form-group">
             <label>Sinopse</label>
@@ -56,5 +60,4 @@
         <input type="submit" class="btn btn-primary" value="Adicionar">
     </form>
 </div>
-<script src="{{url_for('static', filename='js/get_genero.js')}}"></script>
 {% endblock %}

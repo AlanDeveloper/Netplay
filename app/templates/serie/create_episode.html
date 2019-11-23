@@ -5,9 +5,10 @@
 <div class="container">
     <h1 style="text-align:center;">Adicionar Episódios</h1>
     <br />
-    <form action="#" style="position:relative;height:50em;" class="form-control" enctype="multipart/form-data" method="post">
+    <form action="#" style="position:relative;height:50em;" class="form-control" enctype="multipart/form-data"
+        method="post">
         {% if error %}
-            <p class=error>{{ error }}</p>
+        <p class=error>{{ error }}</p>
         {% endif %}
         <div class="form-group">
             <label>Título</label>
@@ -18,7 +19,7 @@
             <select name="serieId" class="form-control" id="serie">
                 <option value="none">Selecione uma série</option>
                 {% for item in ls %}
-                    <option value="{{ item.id }}"> {{ item.title }}</option>
+                <option value="{{ item.id }}"> {{ item.title }}</option>
                 {% endfor %}
             </select>
         </div>

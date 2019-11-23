@@ -1,18 +1,18 @@
 from .. import db
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 
 class episode(db.Model):
     __tablename__ = 'episode'
     id = Column(Integer, primary_key=True)
     title = Column(String(100), unique=True, nullable=False)
-    serieId = Column(Integer, nullable=False)
-    seasonNumber = Column(Integer, nullable=False)
+    serie_id = Column(Integer, ForeignKey('serie.id', ondelete='CASCADE'))
+    season_number = Column(Integer, nullable=False)
     video = Column(String(1000), nullable=False)
 
-    def __init__(self, title, serieId, seasonNumber, newname=None):
+    def __init__(self, title, serie_id, season_number, newname=None):
         self.title = title
-        self.serieId = serieId
-        self.seasonNumber = seasonNumber
+        self.serie_id = serie_id
+        self.season_number = season_number
         self.video = newname
 
     def add(episode):
@@ -30,16 +30,19 @@ class episode(db.Model):
         db.session.merge(episode)
         db.session.commit()
 
+    def search_all(serie_id):
+        return episode.query.filter_by(serie_id = serie_id).all()
+
     def search(serie_id, season_id):
         return episode.query.filter_by(
-            serieId = serie_id,
-            seasonNumber = season_id
+            serie_id = serie_id,
+            season_number = season_id
         ).all()
     
     def search_episode(serie_id, season_id, episode_id):
         return episode.query.filter_by(
-            serieId=serie_id,
-            seasonNumber=season_id,
+            serie_id=serie_id,
+            season_number=season_id,
             id=episode_id
         ).first()
 

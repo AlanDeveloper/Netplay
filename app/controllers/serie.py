@@ -15,6 +15,7 @@ from app import path
 serie_bp = Blueprint('serie', __name__, url_prefix='/serie')
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'mp4'])
 
+
 @serie_bp.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -25,15 +26,12 @@ def index():
         file = request.files['file']
 
         try:
-            generos = request.form.getlist('genero')
-
-            v = ''
-            for gen in generos:
-                v += gen + ';'
+            checkbox = request.form.getlist('checkbox')
+            genero = ';'.join(checkbox)+';'
 
             if title != '' and synopsis != '' and ageRange != '':
                 newname = upload(file, 'images')
-            resp = serie(title, synopsis, ageRange, v, season, newname)
+            resp = serie(title, synopsis, ageRange, genero, season, newname)
             serie.add(resp)
 
             return redirect('/serie/lista')
@@ -51,8 +49,38 @@ def index():
 def delete(id):
     file = serie.search(id)
     os.remove(path.format('serie', 'images') + file.image)
+    file = episode.search_all(id)
+    for item in file:
+        os.remove(path.format('serie', 'videos') + item.video)
     serie.delete(id)
     return redirect('/serie/lista')
+
+@serie_bp.route('/atualizar/<id>', methods=['GET', 'POST'])
+def update(id):
+    if request.method == 'POST':
+        title = request.form['title']
+        synopsis = request.form['synopsis']
+        ageRange = request.form['ageRange']
+        season = request.form['season']
+        file = request.files['file']
+        checkbox = request.form.getlist('select')
+        genero = ';'.join(checkbox)+';'
+        resp = serie.search(id)
+
+        if file:
+            newname = upload(file, 'images')
+
+            os.remove(path.format('serie', 'images') + resp.image)
+            resp = serie(title, synopsis, ageRange, genero, season, newname)
+        else:
+            resp = serie(title, synopsis, ageRange, genero, season)
+        resp.id = id
+
+        serie.update(resp)
+        return redirect('/serie/lista')
+    else:
+        ls = serie.search(id)
+        return render_template('serie/update.html', ls=ls)
 
 @serie_bp.route('/lista', methods=['GET', 'POST'])
 def list():

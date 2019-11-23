@@ -1,5 +1,4 @@
 const dr = document.querySelector('#duration');
-const watch = document.querySelector('#watch');
 
 (function () {
     var onDurationChange = function () {
@@ -12,19 +11,6 @@ const watch = document.querySelector('#watch');
     onDurationChange();
 }());
 video.oncontextmenu = function () { return false; }
-
-watch.addEventListener('click', function () {
-    jquery.ajax({
-        url: '/tempo',
-        type: 'POST',
-        data: {
-            video: url[url.length - 1]
-        },
-        async: true
-    }).done(function (e) {
-        video.currentTime = e.time
-    });
-});
 
 function convertTime(duration) {
     let minute = Math.floor(duration / 60) % 60;
