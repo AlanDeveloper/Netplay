@@ -27,12 +27,11 @@
                 <option value="18" {% if (ls.ageRange == "18"): %} {% print('selected') %} {% endif %}>18</option>
             </select>
         </div>
-        <label for="">Gênero</label>
+        <label for="">Gênero(s)</label>
         <div class="form-group">
             <label for="">Ação</label>
             <input type="checkbox" value="Ação" {% for ls in ls.genero.split(';')[:-1]: %} {% if(ls == 'Ação'): %}
                 {% print('checked') %} {% endif %} {% endfor %} name="select"> <br />
-
             <label for="">Aventura</label>
             <input type="checkbox" value="Aventura" {% for ls in ls.genero.split(';')[:-1]: %}
                 {% if(ls == 'Aventura'): %} {% print('checked') %} {% endif %} {% endfor %} name="select"> <br />
@@ -55,65 +54,7 @@
             <label for="">Terror</label>
             <input type="checkbox" value="Terror" {% for ls in ls.genero.split(';')[:-1]: %} {% if(ls == 'Terror'): %}
                 {% print('checked') %} {% endif %} {% endfor %} name="select">
-        </div>
-        <label for="">Gênero</label>        
-        <div class="form-group">
-                <label for="">Ação</label>
-                <input type="checkbox" value="Ação" 
-                {% for ls in ls.genero.split(';')[:-1]: %}
-                    {% if(ls == 'Ação'): %} {% print('checked') %} 
-                    {% endif %}
-                {% endfor %}   
-                    name="select"> <br/> 
-                    
-                <label for="">Aventura</label>                
-                <input type="checkbox" value="Aventura"
-                {% for ls in ls.genero.split(';')[:-1]: %}                
-                    {% if(ls == 'Aventura'): %} {% print('checked') %} 
-                    {% endif %}
-                {% endfor %}                       
-                    name="select" > <br/> 
-                <label for="">Comédia</label>                          
-                <input type="checkbox" value="Comédia"
-                {% for ls in ls.genero.split(';')[:-1]: %}                
-                    {% if(ls == 'Comédia'): %} {% print('checked') %} 
-                    {% endif %}
-                {% endfor %}                       
-                    name="select" > <br/>
-                <label for="">Documentário</label>      
-                    <input type="checkbox" value="Documentário"                 
-                    {% for ls in ls.genero.split(';')[:-1]: %}                                
-                        {% if(ls == 'Documentário'): %} {% print('checked') %} {% endif %} 
-                    {% endfor %} name="select" >  <br/> 
-                <label for="">Ficção científica</label>                        
-                <input type="checkbox" value="Ficção científica" 
-                {% for ls in ls.genero.split(';')[:-1]: %}                                           
-                    {% if(ls == 'Ficção científica'): %} {% print('checked') %} 
-                    {% endif %}
-                {% endfor %}                       
-                    name="select" > <br/> 
-                <label for="">Romance</label>     
-                <input type="checkbox" value="Romance"
-                {% for ls in ls.genero.split(';')[:-1]: %}                                           
-                    {% if(ls == 'Romance'): %} {% print('checked') %} 
-                    {% endif %}
-                {% endfor %}                       
-                    name="select" >  <br/> 
-                <label for="">Suspense</label>                     
-                <input type="checkbox" value="Suspense"
-                {% for ls in ls.genero.split(';')[:-1]: %}                                           
-                    {% if(ls == 'Suspense'): %} {% print('checked') %} 
-                    {% endif %}
-                {% endfor %}                       
-                    name="select" >  <br/> 
-                <label for="">Terror</label>                                     
-                <input type="checkbox" value="Terror"  
-                {% for ls in ls.genero.split(';')[:-1]: %}                                           
-                    {% if(ls == 'Terror'): %} {% print('checked') %} 
-                    {% endif %}
-                {% endfor %}                       
-                    name="select" > 
-        </div>    
+        </div>  
         <div class="form-group">
             <label>Selecione o arquivo da imagem(png, jpg, jpeg)</label><br>
             <input type="file" name="file">
