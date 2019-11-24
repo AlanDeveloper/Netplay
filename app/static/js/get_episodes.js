@@ -44,7 +44,9 @@ const get_episodes = function (event) {
                 a = document.createElement('a');
                 a.innerText = 'Assistir';
                 a.setAttribute('href', '/serie/' + url[url.length - 1] + '/' + event.target.value + '/' + res[i].id);
-
+                a.style.backgroundColor = "#8585d8";
+                a.style.color = "white";                
+                button.style.backgroundColor = "#8585d8";
                 button.appendChild(a);
                 div.appendChild(button);
                 div_season.appendChild(div);
