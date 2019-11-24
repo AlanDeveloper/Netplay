@@ -2,7 +2,7 @@
 {% block body %}
 <div style="width:90%;" class="row">
   <div class="col">
-  <img src="{{url_for('static', filename='film/images/'+ls.image)}}" width="500px" height="500px" alt="">
+  <img src="{{url_for('static', filename='film/images/'+ls.image)}}" width="500px" height="550px" alt="">
   </div>
   <div style="position:relative;top:1em;" class="col">
     <button class="btn btn-light" style="color:white;box-shadow: 1px 1px gray;background-color:{% if (ls.ageRange == 'L'): %} {% print('green') %} {% endif %}
