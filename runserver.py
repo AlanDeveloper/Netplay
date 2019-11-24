@@ -39,7 +39,7 @@ def before_request_func():
         if request.path == '/usuario/' or request.path == '/' or request.path == '/usuario/entrar':
             return redirect('/home')
 
-    if (request.path == '/filme/') or (request.path.find("/filme/atualizar") !=-1) or (request.path.find("/filme/selecionar") !=-1) :
+    if (request.path == '/filme/') or (request.path.find("/filme/atualizar") !=-1) or  (request.path.find("/serie/atualizar") !=-1) or (request.path.find("/selecionar_series") !=-1) or (request.path.find("/selecionar_filmes") !=-1) :
         if session['admin'] == False:
             return render_template("printer/error.html")
 
