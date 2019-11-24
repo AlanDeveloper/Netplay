@@ -1,3 +1,4 @@
+
 {% extends "layout/base.html" %}
 
 {% block body %}
@@ -15,12 +16,12 @@
             <a class="dropdown-item"  href="/selecionar_series"> Séries</a>
         </div>
     </div>
-    <section style="position:relative;width:100%;height:25em;" class="service-section bg-gray section">
-        <br/><br/><br/>
+    <section style="position:relative;width:100%;height:30em;" class="service-section bg-gray section">
+        <br/><br/>
         <div style="position:relative;color:#377BA8;width:100%;" class="section-title text-center">
             <h1> Lançamentos <span>Filmes 2019</span></h1>
         </div>
-        <br/>
+        <br/><br/>
         <div style="position:relative;width:80%;left:9.5%;" class="row items-container clearfix">
             {% for item in ls_films_active %}
                 {% if item.active %}
@@ -44,6 +45,7 @@
         <br /><br /><br />
         <div style="position:relative;color:#377BA8;width:100%;" class="section-title text-center">
             <h1> Lançamentos <span>Séries 2019</span></h1>
+            <br/>
         </div>
         <br />
         <div style="position:relative;width:80%;left:9.5%;" class="row items-container clearfix">
@@ -68,12 +70,12 @@
     </section>
     
     {% if not session['admin'] %}
-    <section style="position:relative;top:13em;width:100%;height:30em;" class="service-section bg-gray section">
+    <section style="position:relative;top:13em;width:100%;height:35em;" class="service-section bg-gray section">
         <br/><br/><br/>
         <div style="position:relative;color:#377BA8;width:100%;" class="section-title text-center">
             <h1> Continuar assistindo Filmes</span></h1>
         </div>
-        <br/>
+        <br/><br/>
         <div style="position:relative;width:80%;left:9.5%;" class="row items-container clearfix">
             {% for item in ls_films %}
             <div  class="item">
@@ -94,12 +96,11 @@
             </div>            
             {% endfor %}
         </section>
-        <section style="position:relative;top:13em;width:100%;height:30em;" class="service-section bg-gray section">
-            <br /><br /><br /><br><br><br><br><br><br><br>
+        <section style="position:relative;top:30em;width:100%;height:55em;" class="service-section bg-gray section">
             <div style="position:relative;color:#377BA8;width:100%;" class="section-title text-center">
                 <h1> Continuar assistindo Séries</span></h1>
             </div>
-            <br />
+            <br/><br/>
             {% for item in ls_series %}
             <div class="item">
                 <div class="inner-box">
@@ -114,7 +115,7 @@
                                 <h5 class="card-title">Episódio: {{ item2.id }}</h5>
                                 <a href="/serie/{{item.id}}/{{item2.season_number}}/{{item2.id}}">
                                     <i id="icon"
-                                        style="position: relative;left: 45%;color: rgba(255,255, 255, 0.83);top:-5em;font-size:55px;"
+                                        style="position: relative;left: 40%;color: rgba(255,255, 255, 0.83);top:-6.3em;font-size:55px;"
                                         class="fa fa-play-circle-o" aria-hidden="true"></i>
                                 </a>
                             </div>
@@ -129,15 +130,6 @@
     </section>
 </div>
 </div>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
 
 <script src="{{url_for('static', filename='plugins/jquery.js')}}"></script>
 <script src="{{url_for('static', filename='plugins/bootstrap.min.js')}}"></script>
