@@ -2,14 +2,17 @@
 {% block body %}
 <div style="width:90%;" class="row">
   <div class="col">
+      <img src="{{url_for('static', filename='serie/images/'+serie.image)}}" width="500" height="550" alt="">         
   </div>
-  <div style="position:relative;top:1em;" class="col">     
+  <div style="position:relative;top:1em;" class="col">  
     <button  type="button" class="btn btn-outline-primary" id="watch" data-toggle="modal" data-target="#modalExemplo" 
     {% if (session['admin'] == true ): %} {% print('disabled') %} {% endif %}>Assistir</button>    <br/>
     <br/>
     
     <h1 style="text-align: center;" >{{ ls.title }}</h1>
     <br/>
+    <p style="font-size:22.2px;">Série: {{serie.title}}</p>      
+    <p style="font-size:22.2px;">Temporada: {{ls.season_number}}°</p>            
     <p style="font-size:22.2px;" id="duration"></p>
   </div>
 </div>
@@ -35,6 +38,7 @@
           </div>
         </div>
     </div>
+    
     <script src="{{url_for('static', filename='plugins/jquery.js')}}"></script>
     <script src="{{url_for('static', filename='js/save_minute.js')}}"></script>
     <script src="{{url_for('static', filename='js/get_duration.js')}}"></script>
