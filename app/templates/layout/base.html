@@ -19,9 +19,14 @@
 <body>
     <nav style="position:relative;padding-left:10%;height:10em;background:black!important;"
     class="navbar navbar-light bg-light">
-    {% if not session %}
+    {% if not session and request.path != '/' and request.path !='/usuario/entrar' %}
         <a href="/" style="position:relative;" class="navbar-brand"><img src="{{url_for('static', filename='images/logo.png')}}" width="100" height="100" alt=""></a>
         <h1 style="position:relative;left:-5%;">NetPlay </h1>
+        <a class="nav-link" style="color:white;" href="/usuario/entrar">
+            <button type="button" style="position:relative;left:-85%;" class="btn btn-info">
+                Logar
+            </button>
+        </a>
     {% endif %}
     {% if session %}
         <a href="/home" class="navbar-brand">
@@ -50,24 +55,17 @@
             Adicionar
         </a>   
         <div class="dropdown-menu" id="d" aria-labelledby="navbarDropdown">  
-            <a class="dropdown-item"  href="/filme"> Filme</a>
-            <a class="dropdown-item"  href="/serie"> Série</a>
+            <a class="dropdown-item"  href="/filme"> Filmes</a>
+            <a class="dropdown-item"  href="/serie"> Séries</a>
             <a class="dropdown-item"  href="/serie/episodio"> Episódio</a>
         </div>
     </div>
-    
-    
-                
-        </li>
+   </li>
     {% endif %}
     {% endif %}
-    {% if not session %}
-        <a class="nav-link" style="color:white;" href="/usuario/entrar">
-            <button type="button" style="position:relative;left:-85%;" class="btn btn-info">
-                Logar
-            </button>
-        </a>
-    
+    {% if not session and request.path != '/usuario/' %}
+    <a href="/" style="position:relative;" class="navbar-brand"><img src="{{url_for('static', filename='images/logo.png')}}" width="100" height="100" alt=""></a>
+        <h1 style="position:relative;left:-50%;">NetPlay </h1>
     {% endif %}
     {% if session %}
         <form style="position:relative;" action="/filme/buscar" method="post" class="form-inline">
