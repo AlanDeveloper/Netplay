@@ -20,7 +20,7 @@ def home():
     list_serie_active = serie.ls()
 
     if session['admin']:
-        return render_template('printer/home.html', ls_film=list_films_active, ls_serie=list_serie_active)
+        return render_template('printer/home.html', ls_films_active=list_films_active, ls_series_active=list_serie_active)
     else:
         items = []
         items2 = []
