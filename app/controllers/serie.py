@@ -83,6 +83,10 @@ def update(id):
         resp.id = id
 
         serie.update(resp)
+
+        s = episode.search_season(season)
+        for item in s:
+            episode.delete(item.id)
         return redirect('/serie/lista')
     else:
         ls = serie.search(id)
@@ -97,27 +101,6 @@ def list():
 def list_season(serie_id):
     ls = serie.search(serie_id)
     return render_template('serie/list_season.html', ls=ls)
-
-@serie_bp.route('/lista/<serie_id>/<season_id>', methods=['GET', 'POST'])
-def list_episode(serie_id, season_id):
-    ls = episode.search(serie_id, season_id)
-    v= []
-
-    for item in ls:
-        v.append({
-            'id': item.id,
-            'title': item.title,
-            'episode_number': item.episode_number,
-            'video': item.video
-        })
-    
-    return jsonify(v)
-
-@serie_bp.route('/<serie_id>/<season_id>/<episode_id>', methods=['GET', 'POST'])
-def watch_episode(serie_id, season_id, episode_id):
-    ls = episode.search_episode(serie_id, season_id, episode_id)
-    s = serie.search(serie_id)
-    return render_template('serie/info.html',serie=s, ls=ls)
 
 @serie_bp.route('/episodio', methods=['GET', 'POST'])
 def register_episode():
@@ -139,15 +122,56 @@ def register_episode():
         except UnboundLocalError:
             ls = serie.ls()
             error = 'Todos os campos devem ser preenchidos!'
-            return render_template('serie/create_episode.html', error=error, ls=ls)
+            return render_template('serie/episode/create.html', error=error, ls=ls)
         except exc.IntegrityError:
             ls = serie.ls()
             error = 'Título já cadastrado!'
-            return render_template('serie/create_episode.html', error=error, ls=ls)
+            return render_template('serie/episode/create.html', error=error, ls=ls)
 
     else:
         ls = serie.ls()
-        return render_template('serie/create_episode.html', ls=ls)
+        return render_template('serie/episode/create.html', ls=ls)
+
+@serie_bp.route('/lista/<serie_id>/<season_id>', methods=['GET', 'POST'])
+def list_episode(serie_id, season_id):
+    ls = episode.search(serie_id, season_id)
+    v = []
+
+    for item in ls:
+        v.append({
+            'id': item.id,
+            'title': item.title,
+            'episode_number': item.episode_number,
+            'video': item.video
+        })
+
+    return jsonify(v)
+
+@serie_bp.route('/<serie_id>/<season_id>/<episode_id>', methods=['GET', 'POST'])
+def watch_episode(serie_id, season_id, episode_id):
+    ls = episode.search_episode(serie_id, season_id, episode_id)
+    s = serie.search(serie_id)
+    return render_template('serie/episode/info.html', serie=s, ls=ls)
+
+@serie_bp.route('/atualizar/<serie_id>/<season_id>/<episode_id>', methods=['GET', 'POST'])
+def update_episode(serie_id, season_id, episode_id):
+    if request.method == 'POST':
+        title = request.form['title']
+        fl = request.files['video']
+        resp = episode.search_episode(serie_id, season_id, episode_id)
+
+        if fl:
+            newname = upload(fl, 'videos')
+            os.remove(path.format('serie', 'videos') + resp.video)
+
+        resp.title = title
+        resp.video = newname
+        episode.update(resp)
+
+        return redirect('/serie/lista')
+    else:
+        ls = episode.search_episode(serie_id, season_id, episode_id)
+        return render_template('serie/episode/update.html', ls=ls)
 
 def upload(file, folder):
     dt = strftime("%Y-%m-%d %H:%M:%S", gmtime())

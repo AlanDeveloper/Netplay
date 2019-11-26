@@ -16,8 +16,8 @@ function convertTime(duration) {
     let minute = Math.floor(duration / 60) % 60;
     let second = Math.floor(duration % 60);
 
-    minute = minute.lenght == 1 ? '0' + minute : minute;
-    second = second.lenght == 1 ? '0' + second : second;
-
+    minute = minute == 1 ? '0' + minute : minute;
+    second = second == 1 ? '0' + second : second;
+    
     return (minute + ' : ' + second);
 }

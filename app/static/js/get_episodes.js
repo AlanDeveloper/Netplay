@@ -1,6 +1,7 @@
 const divSeason = document.querySelector('.container');
 const number = document.querySelector('#number');
 const url = window.location.href.split('/');
+const admin = document.querySelector('#admin');
 const jquery = $;
 let div, button;
 
@@ -39,15 +40,29 @@ const get_episodes = function (event) {
                 div.setAttribute('role', 'alert');
                 div.innerText = 'Episódio ' + (res[i].episode_number + 1) + ': ' + (res[i].title);
 
+                if(admin.innerText == 'True') {
+                    button = document.createElement('button');             
+                    button.style.backgroundColor = "#8585d8";
+                    
+                    a = document.createElement('a');
+                    a.innerText = 'Atualizar';
+                    a.setAttribute('href', '/serie/atualizar/' + url[url.length - 1] + '/' + event.target.value + '/' + res[i].id);
+                    a.style.backgroundColor = "#8585d8";
+                    a.style.color = "white";                
+                    button.appendChild(a);
+                    div.appendChild(button);
+                }
+                
                 button = document.createElement('button');             
+                button.style.backgroundColor = "#33E0FF";
                 
                 a = document.createElement('a');
                 a.innerText = 'Assistir';
                 a.setAttribute('href', '/serie/' + url[url.length - 1] + '/' + event.target.value + '/' + res[i].id);
-                a.style.backgroundColor = "#8585d8";
+                a.style.backgroundColor = "#33E0FF";
                 a.style.color = "white";                
-                button.style.backgroundColor = "#8585d8";
                 button.appendChild(a);
+                
                 div.appendChild(button);
                 div_season.appendChild(div);
             }
@@ -70,3 +85,4 @@ const get_episodes = function (event) {
 
 for (let i = 0; i < parseInt(number.innerText); i++) card_seasons(i);
 divSeason.removeChild(number);
+divSeason.removeChild(admin);

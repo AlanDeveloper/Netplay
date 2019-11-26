@@ -1,0 +1,20 @@
+{% extends 'layout/base.html' %}
+{% block body %}
+<div class="container">
+    <br />
+    <h1 style="text-align:center;">Alterar Filmes</h1>
+    <br />
+    <form action="#" style="position:relative;height:20em;" class="form-control" enctype="multipart/form-data" method="post">
+        <div class="form-group">
+            <label for="staticEmail2">Título</label>
+            <input type="text" class="form-control" name="title" value="{{ ls.title }}" placeholder="Digite o título">
+        </div>
+        <div class="form-group">
+            <label>Selecione o arquivo do video(mp4)</label><br>
+            <input type="file" name="video">
+        </div>
+        <button type="button" class="btn btn-secondary"><a href="/serie/lista" style="color:white;text-decoration: none;">Voltar</a></button>
+        <input type="submit" class="btn btn-primary" value="Atualizar">
+    </form>
+</div>
+{% endblock %}

@@ -10,7 +10,7 @@
         <img src="{{url_for('static', filename='serie/images/'+ls.image)}}" width="500px" height="550px" 
             alt="...">
     </div>
-        <div class="col"> 
+    <div class="col"> 
             <br/>                
             <button class="btn btn-light" style="color:white;box-shadow: 1px 1px gray;background-color:{% if (ls.ageRange == 'L'): %} {% print('green') %} {% endif %}
             {% if (ls.ageRange == '10'): %} {% print('blue') %} {% endif %}
@@ -27,7 +27,8 @@
             <p style="font-size:22.2px;">{{ls.synopsis}}</p>
             <br><br>
             <div class="container">
-                    <p id="number">{{ ls.season }}</p>    
+                <p id="admin">{{ session['admin'] }}</p>
+                <p id="number">{{ ls.season }}</p>    
             </div>                
         </div>
     </div>        
