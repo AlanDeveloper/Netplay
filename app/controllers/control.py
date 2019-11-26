@@ -152,3 +152,11 @@ def select_serie():
     else:
 
         return render_template('printer/select_serie.html', ls=ls)
+
+@control.route('/buscar', methods=['GET', 'POST'])
+def search_film_serie():
+    s = request.form['search']
+    ls_serie = serie.searchName(s)
+    ls_film = film.searchName(s)
+
+    return render_template('printer/list.html', ls_film = ls_film, ls_serie = ls_serie)
