@@ -55,6 +55,12 @@ def delete(id):
     serie.delete(id)
     return redirect('/serie/lista')
 
+@serie_bp.route('/buscar', methods=['GET', 'POST'])
+def search():
+    s = request.form['search']
+    ls = serie.searchName(s)
+    return render_template('serie/list.html', ls=ls)
+
 @serie_bp.route('/atualizar/<id>', methods=['GET', 'POST'])
 def update(id):
     if request.method == 'POST':
