@@ -163,9 +163,9 @@ def update_episode(serie_id, season_id, episode_id):
         if fl:
             newname = upload(fl, 'videos')
             os.remove(path.format('serie', 'videos') + resp.video)
+            resp.video = newname
 
         resp.title = title
-        resp.video = newname
         episode.update(resp)
 
         return redirect('/serie/lista')
