@@ -101,6 +101,7 @@ def list_episode(serie_id, season_id):
         v.append({
             'id': item.id,
             'title': item.title,
+            'episode_number': item.episode_number,
             'video': item.video
         })
     
@@ -117,15 +118,27 @@ def register_episode():
 
     if request.method == 'POST':
         title = request.form['title']
-        serieId = request.form['serieId']
-        seasonNumber = request.form['seasonNumber']
+        serie_id = request.form['serieId']
+        season_number = request.form['seasonNumber']
         video = request.files['video']
         newname = upload(video, 'videos')
+        episode_number = len(episode.search(serie_id, season_number))
 
-        p = episode(title, serieId, seasonNumber, newname)
-        episode.add(p)
+        try:
 
-        return redirect('/serie/lista')
+            p = episode(title, serie_id, season_number, episode_number, newname)
+            episode.add(p)
+    
+            return redirect('/serie/lista')
+        except UnboundLocalError:
+            ls = serie.ls()
+            error = 'Todos os campos devem ser preenchidos!'
+            return render_template('serie/create_episode.html', error=error, ls=ls)
+        except exc.IntegrityError:
+            ls = serie.ls()
+            error = 'Título já cadastrado!'
+            return render_template('serie/create_episode.html', error=error, ls=ls)
+
     else:
         ls = serie.ls()
         return render_template('serie/create_episode.html', ls=ls)

@@ -37,7 +37,7 @@ const get_episodes = function (event) {
                 div = document.createElement('div');
                 div.setAttribute('class', 'mt-3 alert alert-light');
                 div.setAttribute('role', 'alert');
-                div.innerText = 'Episódio ' + (i + 1) + ': ' + (res[i].title);
+                div.innerText = 'Episódio ' + (res[i].episode_number + 1) + ': ' + (res[i].title);
 
                 button = document.createElement('button');             
                 

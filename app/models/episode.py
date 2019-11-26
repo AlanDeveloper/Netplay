@@ -7,12 +7,14 @@ class episode(db.Model):
     title = Column(String(100), unique=True, nullable=False)
     serie_id = Column(Integer, ForeignKey('serie.id', ondelete='CASCADE'))
     season_number = Column(Integer, nullable=False)
+    episode_number = Column(Integer, nullable=False)
     video = Column(String(1000), nullable=False)
 
-    def __init__(self, title, serie_id, season_number, newname=None):
+    def __init__(self, title, serie_id, season_number, episode_number, newname=None):
         self.title = title
         self.serie_id = serie_id
         self.season_number = season_number
+        self.episode_number = episode_number
         self.video = newname
 
     def add(episode):
