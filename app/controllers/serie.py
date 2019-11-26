@@ -110,8 +110,8 @@ def list_episode(serie_id, season_id):
 @serie_bp.route('/<serie_id>/<season_id>/<episode_id>', methods=['GET', 'POST'])
 def watch_episode(serie_id, season_id, episode_id):
     ls = episode.search_episode(serie_id, season_id, episode_id)
-
-    return render_template('serie/info.html', ls=ls)
+    s = serie.search(serie_id)
+    return render_template('serie/info.html',serie=s, ls=ls)
 
 @serie_bp.route('/episodio', methods=['GET', 'POST'])
 def register_episode():
