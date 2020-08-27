@@ -12,8 +12,6 @@ Ferramentas:
 - SQLAlchemy
 - Bootstrap
 
-Assim que o banco de dados com nome "netplay" for criado, está pronto para o uso através dos comandos
-
 Criar ambiente virtual
 - python -m venv venv
 
@@ -23,3 +21,5 @@ Ativar o ambiente virtual windows/linux
 
 Baixar os requerimentos e iniciar o sistema
 - source flask_test.sh
+
+Assim que o banco de dados com nome "netplay" for criado, está pronto para o uso
